@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Premium Neumorphic Login</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link rel="stylesheet" href="code-with-nazia.css">
+</head>
+<body>
+
+<div class="login-wrapper">
+    <div class="flip-scene" id="flipScene">
+        <div class="flip-card">
+
+            <!-- FRONT — LOGIN -->
+            <div class="glass-circle front">
+                <div class="accent-ring"></div>
+
+                <form class="login-form" id="loginForm">
+                    <h1>Login</h1>
+                    <div class="subtitle">Sign in to your account</div>
+
+                    <div class="input-box">
+                        <i class="fa-solid fa-user"></i>
+                        <input id="username" name="username" type="text" placeholder="Username" autocomplete="username" required>
+                    </div>
+
+                    <div class="input-box">
+                        <i class="fa-solid fa-lock"></i>
+                        <input id="password" name="password" type="password" placeholder="Password" autocomplete="current-password" required>
+                    </div>
+
+                    <div class="form-message" id="loginMessage" aria-live="polite"></div>
+
+                    <button id="loginButton" type="submit">Sign In</button>
+
+                    <div class="signup-text">Don't have an account? <a href="#signup" id="toSignup">Sign up</a></div>
+                </form>
+            </div>
+
+            <!-- BACK — SIGN UP -->
+            <div class="glass-circle back">
+                <div class="accent-ring"></div>
+
+                <form class="login-form signup-form" id="signupForm">
+                    <h1>Sign Up</h1>
+                    <div class="subtitle">Create your account</div>
+
+                    <div class="input-box">
+                        <i class="fa-solid fa-user"></i>
+                        <input id="signupUsername" name="username" type="text" placeholder="Username" autocomplete="username" required>
+                    </div>
+
+                    <div class="input-box signup-password">
+                        <i class="fa-solid fa-lock"></i>
+                        <input id="signupPassword" name="password" type="password" placeholder="Password (8+ characters)" autocomplete="new-password" minlength="8" required>
+                    </div>
+
+                    <button id="signupButton" type="submit">Create Account</button>
+
+                    <div class="form-message signup-message" id="signupMessage" aria-live="polite"></div>
+
+                    <div class="signup-text">Already have an account? <a href="#login" id="toLogin">Login</a></div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.102.0"></script>
+<script type="module" src="login.js"></script>
+
+</body>
+</html>
