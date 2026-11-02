@@ -298,4 +298,39 @@ async function redirectExistingSession() {
     }
 }
 
+function enableAmbientParallax() {
+    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const finePointer = window.matchMedia("(pointer: fine)");
+
+    if (reducedMotion.matches || !finePointer.matches) {
+        return;
+    }
+
+    let animationFrame = null;
+
+    document.addEventListener("pointermove", (event) => {
+        window.cancelAnimationFrame(animationFrame);
+
+        animationFrame = window.requestAnimationFrame(() => {
+            const horizontal = event.clientX / window.innerWidth - 0.5;
+            const vertical = event.clientY / window.innerHeight - 0.5;
+            const root = document.documentElement;
+
+            root.style.setProperty("--pointer-x", `${event.clientX}px`);
+            root.style.setProperty("--pointer-y", `${event.clientY}px`);
+            root.style.setProperty("--parallax-x", `${horizontal * 12}px`);
+            root.style.setProperty("--parallax-y", `${vertical * 12}px`);
+        });
+    }, { passive: true });
+
+    document.addEventListener("pointerleave", () => {
+        const root = document.documentElement;
+        root.style.setProperty("--pointer-x", "50vw");
+        root.style.setProperty("--pointer-y", "50vh");
+        root.style.setProperty("--parallax-x", "0px");
+        root.style.setProperty("--parallax-y", "0px");
+    });
+}
+
+enableAmbientParallax();
 redirectExistingSession();

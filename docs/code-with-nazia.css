@@ -5,6 +5,19 @@
     box-sizing: border-box;
 }
 
+:root {
+    --paper: #e8e8e8;
+    --ink: #4a4a4a;
+    --muted: #96938f;
+    --wine: #a10f0f;
+    --wine-dark: #741010;
+    --gold: #b99545;
+    --pointer-x: 50vw;
+    --pointer-y: 50vh;
+    --parallax-x: 0px;
+    --parallax-y: 0px;
+}
+
 html {
     font-family: "Poppins", sans-serif;
 }
@@ -14,8 +27,174 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    background: #e8e8e8;
+    position: relative;
+    isolation: isolate;
+    background:
+        radial-gradient(circle at 14% 16%, rgba(255,255,255,.86), transparent 22%),
+        radial-gradient(circle at 86% 82%, rgba(161,15,15,.035), transparent 25%),
+        var(--paper);
     overflow: hidden;
+}
+
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: -4;
+    background-image:
+        linear-gradient(rgba(89,83,78,.055) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(89,83,78,.055) 1px, transparent 1px);
+    background-size: 56px 56px;
+    -webkit-mask-image: radial-gradient(circle at center, transparent 0 25%, #000 58%, transparent 100%);
+    mask-image: radial-gradient(circle at center, transparent 0 25%, #000 58%, transparent 100%);
+    opacity: .52;
+    pointer-events: none;
+}
+
+body::after {
+    content: "";
+    position: fixed;
+    inset: 18px;
+    z-index: -3;
+    border: 1px solid rgba(255,255,255,.48);
+    box-shadow: inset 0 0 0 1px rgba(112,104,98,.035);
+    pointer-events: none;
+}
+
+.ambient-layer {
+    position: fixed;
+    inset: 0;
+    z-index: -2;
+    overflow: hidden;
+    pointer-events: none;
+}
+
+.ambient-layer::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(
+        circle 240px at var(--pointer-x) var(--pointer-y),
+        rgba(255,255,255,.5),
+        rgba(185,149,69,.055) 34%,
+        transparent 72%
+    );
+    opacity: .8;
+    transition: opacity .5s ease;
+}
+
+.ambient-layer::after {
+    content: "";
+    position: absolute;
+    width: min(54vw, 720px);
+    aspect-ratio: 1;
+    left: 50%;
+    top: 50%;
+    border-radius: 50%;
+    background: radial-gradient(circle, transparent 46%, rgba(161,15,15,.025) 63%, transparent 74%);
+    transform: translate(-50%, -50%);
+    animation: ambient-breathe 7s ease-in-out infinite;
+}
+
+.ambient-orbit {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    transform: translate(
+        calc(-50% + var(--parallax-x)),
+        calc(-50% + var(--parallax-y))
+    );
+    transition: transform .9s cubic-bezier(.22,1,.36,1);
+}
+
+.ambient-orbit::before,
+.ambient-orbit::after {
+    content: "";
+    position: absolute;
+    border-radius: 50%;
+}
+
+.orbit-one {
+    width: clamp(370px, 73vw, 760px);
+    border: 1px solid rgba(161,15,15,.11);
+    box-shadow:
+        0 0 0 13px rgba(255,255,255,.14),
+        0 0 42px rgba(113,99,87,.04);
+}
+
+.orbit-one::before {
+    inset: -2px;
+    border: 2px solid transparent;
+    border-top-color: rgba(161,15,15,.52);
+    border-right-color: rgba(185,149,69,.2);
+    filter: drop-shadow(0 0 4px rgba(161,15,15,.08));
+    animation: orbit-arc-turn 18s linear infinite;
+}
+
+.orbit-one::after {
+    inset: 14px;
+    border: 1px solid transparent;
+    border-bottom-color: rgba(161,15,15,.14);
+    border-left-color: rgba(255,255,255,.42);
+    animation: orbit-arc-reverse 26s linear infinite;
+}
+
+.orbit-two {
+    width: clamp(440px, 88vw, 980px);
+    border: 1px solid rgba(90,84,79,.055);
+}
+
+.orbit-two::before {
+    inset: 30px;
+    border: 1px solid rgba(255,255,255,.35);
+    animation: ring-breathe 6.5s ease-in-out infinite;
+}
+
+.orbit-two::after {
+    inset: -1px;
+    border: 1px dashed rgba(90,84,79,.15);
+    animation: orbit-arc-reverse 34s linear infinite;
+}
+
+.ambient-dot {
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: rgba(161,15,15,.5);
+    box-shadow: 0 0 0 6px rgba(161,15,15,.04);
+    animation: dot-drift 8s ease-in-out infinite;
+}
+
+.dot-one { --drift-x: 14px; --drift-y: -18px; left: 17%; top: 28%; }
+.dot-two { --drift-x: -18px; --drift-y: 13px; right: 15%; top: 38%; animation-delay: -2s; }
+.dot-three { --drift-x: 11px; --drift-y: -15px; right: 24%; bottom: 19%; animation-delay: -4s; background: rgba(185,149,69,.7); }
+
+@keyframes orbit-arc-turn {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+@keyframes orbit-arc-reverse {
+    from { transform: rotate(360deg); }
+    to { transform: rotate(0deg); }
+}
+
+@keyframes dot-drift {
+    0%, 100% { transform: translate(0, 0) scale(.85); opacity: .32; }
+    50% { transform: translate(var(--drift-x), var(--drift-y)) scale(1.2); opacity: .95; }
+}
+
+@keyframes ring-breathe {
+    0%, 100% { transform: scale(1); opacity: .35; }
+    50% { transform: scale(1.018); opacity: .8; }
+}
+
+@keyframes ambient-breathe {
+    0%, 100% { transform: translate(-50%, -50%) scale(.96); opacity: .45; }
+    50% { transform: translate(-50%, -50%) scale(1.04); opacity: .95; }
 }
 
 /* =========================
@@ -28,6 +207,8 @@ body {
     align-items: center;
     width: 100%;
     min-height: 100vh;
+    position: relative;
+    z-index: 5;
 }
 
 /* =========================
@@ -73,6 +254,15 @@ body {
     z-index: 5;
     backface-visibility: hidden;
     -webkit-backface-visibility: hidden;
+    transition: box-shadow .65s ease, filter .65s ease;
+}
+
+.flip-scene:hover .glass-circle {
+    box-shadow:
+        -25px -25px 50px #ffffff,
+        25px 25px 56px #bdbdbd,
+        -1px -1px 1px rgba(255,255,255,.55) inset;
+    filter: saturate(1.03);
 }
 
 .glass-circle.back {
@@ -391,11 +581,16 @@ body {
 }
 
 .signup-form .signup-message {
-    margin: 10px 0 -7px;
+    min-height: 0;
+    margin: 8px 0 0;
 }
 
-.signup-form .signup-text {
-    margin-top: 16px;
+.signup-form .signup-message:empty {
+    display: none;
+}
+
+.signup-form .signup-message:not(:empty) + .signup-text {
+    margin-top: 10px;
 }
 
 .hidden {
@@ -473,6 +668,7 @@ body {
 ========================= */
 
 @media (max-width: 600px) {
+    body::after { inset: 10px; }
     .flip-scene { width: 390px; height: 390px; }
     .glass-circle { width: 390px; height: 390px; }
     .login-form { width: 220px; }
@@ -491,6 +687,7 @@ body {
 }
 
 @media (max-width: 420px) {
+    .orbit-two { opacity: .6; }
     .flip-scene { width: 330px; height: 330px; }
     .glass-circle { width: 330px; height: 330px; }
     .login-form { width: 185px; }
@@ -505,9 +702,26 @@ body {
     .signup-form .subtitle { margin-bottom: 10px; }
     .signup-form .input-box { margin-bottom: 8px; }
     .signup-form .signup-password { margin-bottom: 10px; }
-    .signup-form .signup-message { margin: 5px 0 -7px; min-height: 14px; }
-    .signup-form .signup-text { margin-top: 9px; }
+    .signup-form .signup-message { margin-top: 5px; }
+    .signup-form .signup-message:not(:empty) + .signup-text { margin-top: 7px; }
     .verification-hint { margin-bottom: 12px; font-size: 9px; }
     .verification-actions { margin-top: 10px; font-size: 9px; }
     .login-form button { width: 180px; height: 40px; font-size: 12px; border-radius: 10px; }
+}
+
+@media (max-height: 650px) and (min-width: 601px) {
+    .orbit-two { opacity: .55; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    body::before,
+    .ambient-layer::before,
+    .ambient-layer::after,
+    .ambient-orbit,
+    .ambient-dot,
+    .flip-card,
+    .login-form button::before {
+        animation: none !important;
+        transition-duration: .01ms !important;
+    }
 }
