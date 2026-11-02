@@ -85,7 +85,7 @@ async function loadCurrentUser() {
             return;
         }
 
-        const username = data.user.user_metadata?.username
+        const username = data.user.user_metadata?.nickname
             || data.user.email?.split("@")[0]
             || "user";
 

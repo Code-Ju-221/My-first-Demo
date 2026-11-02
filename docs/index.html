@@ -24,8 +24,8 @@
                     <div class="subtitle">Sign in to your account</div>
 
                     <div class="input-box">
-                        <i class="fa-solid fa-user"></i>
-                        <input id="username" name="username" type="text" placeholder="Username" autocomplete="username" required>
+                        <i class="fa-solid fa-envelope"></i>
+                        <input id="loginEmail" name="email" type="email" placeholder="QQ Email" autocomplete="email" required>
                     </div>
 
                     <div class="input-box">
@@ -49,17 +49,41 @@
                     <h1>Sign Up</h1>
                     <div class="subtitle">Create your account</div>
 
-                    <div class="input-box">
-                        <i class="fa-solid fa-user"></i>
-                        <input id="signupUsername" name="username" type="text" placeholder="Username" autocomplete="username" required>
+                    <div id="signupDetails">
+                        <div class="input-box">
+                            <i class="fa-solid fa-user"></i>
+                            <input id="signupNickname" name="nickname" type="text" placeholder="Nickname" autocomplete="nickname" minlength="2" maxlength="24" required>
+                        </div>
+
+                        <div class="input-box">
+                            <i class="fa-solid fa-envelope"></i>
+                            <input id="signupEmail" name="email" type="email" placeholder="QQ Email" autocomplete="email" required>
+                        </div>
+
+                        <div class="input-box signup-password">
+                            <i class="fa-solid fa-lock"></i>
+                            <input id="signupPassword" name="password" type="password" placeholder="Password (8+ characters)" autocomplete="new-password" minlength="8" required>
+                        </div>
+
+                        <button id="sendCodeButton" type="button">Send Verification Code</button>
                     </div>
 
-                    <div class="input-box signup-password">
-                        <i class="fa-solid fa-lock"></i>
-                        <input id="signupPassword" name="password" type="password" placeholder="Password (8+ characters)" autocomplete="new-password" minlength="8" required>
-                    </div>
+                    <div id="signupVerification" class="hidden">
+                        <div class="verification-hint">Enter the 8-digit code sent to <strong id="verificationEmail"></strong></div>
 
-                    <button id="signupButton" type="submit">Create Account</button>
+                        <div class="input-box verification-code-box">
+                            <i class="fa-solid fa-shield-halved"></i>
+                            <input id="signupCode" name="code" type="text" placeholder="8-digit verification code" inputmode="numeric" autocomplete="one-time-code" maxlength="8" pattern="[0-9]{8}">
+                        </div>
+
+                        <button id="verifyCodeButton" type="submit">Verify &amp; Create Account</button>
+
+                        <div class="verification-actions">
+                            <a href="#" id="changeSignupDetails">Change details</a>
+                            <span>·</span>
+                            <a href="#" id="resendCode">Resend code</a>
+                        </div>
+                    </div>
 
                     <div class="form-message signup-message" id="signupMessage" aria-live="polite"></div>
 

@@ -387,7 +387,7 @@ body {
 }
 
 .signup-form .signup-password {
-    margin-bottom: 30px;
+    margin-bottom: 22px;
 }
 
 .signup-form .signup-message {
@@ -396,6 +396,62 @@ body {
 
 .signup-form .signup-text {
     margin-top: 16px;
+}
+
+.hidden {
+    display: none !important;
+}
+
+.verification-hint {
+    margin: 0 0 20px;
+    color: #8a8a8a;
+    font-size: 11px;
+    line-height: 1.5;
+    text-align: center;
+}
+
+.verification-hint strong {
+    display: block;
+    margin-top: 3px;
+    color: #6d1414;
+    font-weight: 600;
+    overflow-wrap: anywhere;
+}
+
+.verification-code-box {
+    margin-bottom: 22px !important;
+}
+
+.verification-code-box input {
+    letter-spacing: 2px;
+}
+
+.verification-actions {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    margin-top: 15px;
+    color: #aaa;
+    font-size: 11px;
+}
+
+.verification-actions a {
+    color: #a10f0f;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.verification-actions a:hover {
+    color: #741010;
+    text-decoration: underline;
+}
+
+.verification-actions a.disabled {
+    color: #aaa;
+    cursor: default;
+    pointer-events: none;
+    text-decoration: none;
 }
 
 .login-form .signup-text {
@@ -429,7 +485,8 @@ body {
     .forgot a { font-size: 11px; }
     .signup-form .subtitle { margin-bottom: 20px; }
     .signup-form .input-box { margin-bottom: 14px; }
-    .signup-form .signup-password { margin-bottom: 22px; }
+    .signup-form .signup-password { margin-bottom: 14px; }
+    .verification-hint { margin-bottom: 15px; }
     .login-form button { width: 215px; height: 44px; font-size: 13.5px; }
 }
 
@@ -445,9 +502,12 @@ body {
     .forgot { margin-bottom: 18px; }
     .forgot a { font-size: 9px; }
     .form-message { margin-top: -14px; font-size: 10px; }
-    .signup-form .subtitle { margin-bottom: 16px; }
-    .signup-form .input-box { margin-bottom: 12px; }
-    .signup-form .signup-password { margin-bottom: 18px; }
+    .signup-form .subtitle { margin-bottom: 10px; }
+    .signup-form .input-box { margin-bottom: 8px; }
+    .signup-form .signup-password { margin-bottom: 10px; }
+    .signup-form .signup-message { margin: 5px 0 -7px; min-height: 14px; }
     .signup-form .signup-text { margin-top: 9px; }
+    .verification-hint { margin-bottom: 12px; font-size: 9px; }
+    .verification-actions { margin-top: 10px; font-size: 9px; }
     .login-form button { width: 180px; height: 40px; font-size: 12px; border-radius: 10px; }
 }
