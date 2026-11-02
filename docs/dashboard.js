@@ -110,8 +110,13 @@ async function loadCurrentUser() {
             element.textContent = nickname;
         });
 
-        userInitial.textContent = initial;
-        profileInitial.textContent = initial;
+        if (!userInitial.querySelector("img")) {
+            userInitial.textContent = initial;
+        }
+
+        if (!profileInitial.querySelector("img")) {
+            profileInitial.textContent = initial;
+        }
     } catch (error) {
         console.error(error);
         sessionMessage.textContent = "无法连接到 Supabase，请稍后重试。";
