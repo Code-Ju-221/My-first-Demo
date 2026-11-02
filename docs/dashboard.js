@@ -2,46 +2,15 @@ import { supabase } from "./supabase-client.js";
 
 const usernameElements = document.querySelectorAll("[data-username]");
 const userInitial = document.getElementById("userInitial");
+const profileInitial = document.getElementById("profileInitial");
 const sessionMessage = document.getElementById("sessionMessage");
-const logoutButton = document.getElementById("logoutButton");
 const currentSection = document.getElementById("currentSection");
-const viewTitle = document.getElementById("viewTitle");
-const viewDescription = document.getElementById("viewDescription");
-const panelTitle = document.getElementById("panelTitle");
 const greeting = document.getElementById("greeting");
-
-const views = {
-    home: {
-        label: "Home",
-        title: "Your workspace",
-        description: "A flexible foundation for whatever this product becomes.",
-        panel: "Start with a clear canvas"
-    },
-    overview: {
-        label: "Overview",
-        title: "Workspace overview",
-        description: "A neutral summary area ready for the metrics that matter later.",
-        panel: "Your overview will live here"
-    },
-    projects: {
-        label: "Projects",
-        title: "Projects",
-        description: "A structured home for active, paused and completed work.",
-        panel: "Create your first project"
-    },
-    messages: {
-        label: "Messages",
-        title: "Messages",
-        description: "Conversation space is ready to connect when the product theme is defined.",
-        panel: "Your conversations will appear here"
-    },
-    settings: {
-        label: "Settings",
-        title: "Settings",
-        description: "Account and workspace preferences can be added in this section.",
-        panel: "Shape the workspace around you"
-    }
-};
+const navigationItems = document.querySelectorAll(".nav-item[data-target]");
+const logoutButtons = [
+    document.getElementById("logoutButton"),
+    document.getElementById("topLogoutButton")
+].filter(Boolean);
 
 function goToLogin() {
     window.location.replace("index.html");
@@ -50,31 +19,78 @@ function goToLogin() {
 function setGreeting() {
     const hour = new Date().getHours();
 
-    if (hour < 12) {
-        greeting.textContent = "Good morning";
+    if (hour < 6) {
+        greeting.textContent = "夜深了";
+    } else if (hour < 12) {
+        greeting.textContent = "早上好";
     } else if (hour < 18) {
-        greeting.textContent = "Good afternoon";
+        greeting.textContent = "下午好";
     } else {
-        greeting.textContent = "Good evening";
+        greeting.textContent = "晚上好";
     }
 }
 
-function updateView(viewName) {
-    const view = views[viewName];
+function setActiveSection(sectionId, label) {
+    currentSection.textContent = label;
 
-    if (!view) {
+    navigationItems.forEach((item) => {
+        item.classList.toggle("active", item.dataset.target === sectionId);
+    });
+}
+
+function scrollToSection(sectionId) {
+    const section = document.getElementById(sectionId);
+
+    if (section) {
+        section.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+}
+
+navigationItems.forEach((item) => {
+    item.addEventListener("click", () => {
+        scrollToSection(item.dataset.target);
+    });
+});
+
+document.querySelectorAll("[data-scroll-to]").forEach((button) => {
+    button.addEventListener("click", () => {
+        scrollToSection(button.dataset.scrollTo);
+    });
+});
+
+document.getElementById("scrollTopButton").addEventListener("click", () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+});
+
+document.querySelectorAll(".project-toggle").forEach((button) => {
+    button.addEventListener("click", () => {
+        const projectCard = button.closest(".project-card");
+        const expanded = projectCard.classList.toggle("expanded");
+
+        button.setAttribute("aria-expanded", String(expanded));
+        button.querySelector("span").textContent = expanded ? "收起项目详情" : "查看项目详情";
+    });
+});
+
+const sectionObserver = new IntersectionObserver((entries) => {
+    const visibleSections = entries
+        .filter((entry) => entry.isIntersecting)
+        .sort((a, b) => b.intersectionRatio - a.intersectionRatio);
+
+    if (!visibleSections.length) {
         return;
     }
 
-    currentSection.textContent = view.label;
-    viewTitle.textContent = view.title;
-    viewDescription.textContent = view.description;
-    panelTitle.textContent = view.panel;
+    const section = visibleSections[0].target;
+    setActiveSection(section.id, section.dataset.sectionLabel);
+}, {
+    rootMargin: "-24% 0px -58% 0px",
+    threshold: [0, .15, .35, .6]
+});
 
-    document.querySelectorAll(".nav-item[data-view]").forEach((item) => {
-        item.classList.toggle("active", item.dataset.view === viewName);
-    });
-}
+document.querySelectorAll(".portfolio-section").forEach((section) => {
+    sectionObserver.observe(section);
+});
 
 async function loadCurrentUser() {
     try {
@@ -85,38 +101,28 @@ async function loadCurrentUser() {
             return;
         }
 
-        const username = data.user.user_metadata?.nickname
+        const nickname = data.user.user_metadata?.nickname
             || data.user.email?.split("@")[0]
             || "user";
+        const initial = nickname.charAt(0).toUpperCase();
 
         usernameElements.forEach((element) => {
-            element.textContent = username;
+            element.textContent = nickname;
         });
 
-        userInitial.textContent = username.charAt(0).toUpperCase();
+        userInitial.textContent = initial;
+        profileInitial.textContent = initial;
     } catch (error) {
         console.error(error);
-        sessionMessage.textContent = "Cannot connect to Supabase.";
+        sessionMessage.textContent = "无法连接到 Supabase，请稍后重试。";
     }
 }
 
-document.querySelectorAll(".nav-item[data-view]").forEach((item) => {
-    item.addEventListener("click", () => {
-        updateView(item.dataset.view);
+async function signOut() {
+    logoutButtons.forEach((button) => {
+        button.disabled = true;
     });
-});
-
-document.getElementById("primaryAction").addEventListener("click", () => {
-    sessionMessage.textContent = "This action is ready to connect when the site theme is decided.";
-
-    window.setTimeout(() => {
-        sessionMessage.textContent = "";
-    }, 3200);
-});
-
-logoutButton.addEventListener("click", async () => {
-    logoutButton.disabled = true;
-    sessionMessage.textContent = "Signing out...";
+    sessionMessage.textContent = "正在退出登录...";
 
     try {
         const { error } = await supabase.auth.signOut();
@@ -128,9 +134,15 @@ logoutButton.addEventListener("click", async () => {
         goToLogin();
     } catch (error) {
         console.error(error);
-        sessionMessage.textContent = "Sign out failed. Please try again.";
-        logoutButton.disabled = false;
+        sessionMessage.textContent = "退出失败，请重试。";
+        logoutButtons.forEach((button) => {
+            button.disabled = false;
+        });
     }
+}
+
+logoutButtons.forEach((button) => {
+    button.addEventListener("click", signOut);
 });
 
 supabase.auth.onAuthStateChange((event) => {

@@ -1,52 +1,64 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Workspace</title>
+    <title>Personal Archive</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="stylesheet" href="dashboard.css">
 </head>
 <body>
+    <div class="ambient-background" aria-hidden="true">
+        <span class="ambient-ring ring-one"></span>
+        <span class="ambient-ring ring-two"></span>
+    </div>
+
     <div class="app-shell">
-        <aside class="sidebar" aria-label="Primary navigation">
+        <aside class="sidebar" aria-label="个人档案导航">
             <div class="sidebar-brand">
-                <div class="brand-mark">N</div>
+                <div class="brand-mark">O</div>
                 <div class="brand-copy">
-                    <strong>Neumorph</strong>
-                    <span>Workspace</span>
+                    <strong>Orange</strong>
+                    <span>Personal Archive</span>
                 </div>
             </div>
 
-            <nav class="nav-list" aria-label="Workspace sections">
-                <button class="nav-item active" type="button" data-view="home" title="Home">
+            <nav class="nav-list" aria-label="主页分区">
+                <button class="nav-item active" type="button" data-target="home" title="个人概览">
                     <span class="nav-icon"><i class="fa-solid fa-house"></i></span>
-                    <span class="nav-label">Home</span>
+                    <span class="nav-label">个人概览</span>
                 </button>
-                <button class="nav-item" type="button" data-view="overview" title="Overview">
-                    <span class="nav-icon"><i class="fa-solid fa-chart-simple"></i></span>
-                    <span class="nav-label">Overview</span>
+                <button class="nav-item" type="button" data-target="about" title="基本信息">
+                    <span class="nav-icon"><i class="fa-regular fa-address-card"></i></span>
+                    <span class="nav-label">基本信息</span>
                 </button>
-                <button class="nav-item" type="button" data-view="projects" title="Projects">
+                <button class="nav-item" type="button" data-target="skills" title="技能方向">
+                    <span class="nav-icon"><i class="fa-solid fa-code"></i></span>
+                    <span class="nav-label">技能方向</span>
+                </button>
+                <button class="nav-item" type="button" data-target="projects" title="代表项目">
                     <span class="nav-icon"><i class="fa-solid fa-layer-group"></i></span>
-                    <span class="nav-label">Projects</span>
+                    <span class="nav-label">代表项目</span>
                 </button>
-                <button class="nav-item" type="button" data-view="messages" title="Messages">
-                    <span class="nav-icon"><i class="fa-regular fa-message"></i></span>
-                    <span class="nav-label">Messages</span>
-                    <span class="nav-badge">2</span>
+                <button class="nav-item" type="button" data-target="timeline" title="经历时间线">
+                    <span class="nav-icon"><i class="fa-solid fa-timeline"></i></span>
+                    <span class="nav-label">经历时间线</span>
                 </button>
-                <button class="nav-item" type="button" data-view="settings" title="Settings">
-                    <span class="nav-icon"><i class="fa-solid fa-gear"></i></span>
-                    <span class="nav-label">Settings</span>
+                <button class="nav-item" type="button" data-target="achievements" title="成果证书">
+                    <span class="nav-icon"><i class="fa-solid fa-award"></i></span>
+                    <span class="nav-label">成果证书</span>
+                </button>
+                <button class="nav-item" type="button" data-target="contact" title="联系方式">
+                    <span class="nav-icon"><i class="fa-regular fa-paper-plane"></i></span>
+                    <span class="nav-label">联系方式</span>
                 </button>
             </nav>
 
-            <button class="nav-item logout-item" id="logoutButton" type="button" title="Sign out">
+            <button class="nav-item logout-item" id="logoutButton" type="button" title="退出登录">
                 <span class="nav-icon"><i class="fa-solid fa-arrow-right-from-bracket"></i></span>
-                <span class="nav-label">Sign Out</span>
+                <span class="nav-label">退出登录</span>
             </button>
         </aside>
 
@@ -54,105 +66,246 @@
             <header class="topbar">
                 <div class="topbar-location">
                     <span class="location-dot"></span>
-                    <span>Workspace</span>
+                    <span>Personal Archive</span>
                     <i class="fa-solid fa-chevron-right"></i>
-                    <strong id="currentSection">Home</strong>
+                    <strong id="currentSection">个人概览</strong>
                 </div>
 
                 <div class="topbar-actions">
-                    <button class="icon-button" type="button" aria-label="Notifications" title="Notifications">
-                        <i class="fa-regular fa-bell"></i>
-                        <span class="notification-dot"></span>
+                    <button class="icon-button" id="scrollTopButton" type="button" aria-label="返回顶部" title="返回顶部">
+                        <i class="fa-solid fa-arrow-up"></i>
+                    </button>
+                    <button class="icon-button top-logout" id="topLogoutButton" type="button" aria-label="退出登录" title="退出登录">
+                        <i class="fa-solid fa-arrow-right-from-bracket"></i>
                     </button>
 
                     <div class="user-chip">
                         <div class="user-avatar" id="userInitial">U</div>
                         <div class="user-meta">
                             <strong data-username>Loading...</strong>
-                            <span>Active now</span>
+                            <span>Online</span>
                         </div>
                     </div>
                 </div>
             </header>
 
             <main class="main-content">
-                <section class="page-intro">
-                    <div>
-                        <p class="eyebrow"><span id="greeting">Welcome back</span>, <span data-username>user</span></p>
-                        <h1 id="viewTitle">Your workspace</h1>
-                        <p class="page-description" id="viewDescription">A flexible foundation for whatever this product becomes.</p>
-                    </div>
+                <section class="portfolio-section hero-section" id="home" data-section-label="个人概览">
+                    <div class="hero-panel panel">
+                        <div class="profile-visual">
+                            <span class="profile-orbit orbit-a"></span>
+                            <span class="profile-orbit orbit-b"></span>
+                            <div class="profile-avatar" id="profileInitial">U</div>
+                            <span class="profile-status" title="当前在线"></span>
+                        </div>
 
-                    <button class="primary-action" type="button" id="primaryAction">
-                        <i class="fa-solid fa-plus"></i>
-                        <span>New item</span>
-                    </button>
+                        <div class="hero-copy">
+                            <p class="eyebrow"><span id="greeting">你好</span>，欢迎来到我的个人空间</p>
+                            <h1><span data-username>user</span> 的数字档案</h1>
+                            <p class="hero-description">一名仍在学习和探索的大学生。这里用于记录我的技能、项目、经历与成长。</p>
+
+                            <div class="hero-actions">
+                                <button class="primary-action" type="button" data-scroll-to="projects">
+                                    <span>查看代表项目</span>
+                                    <i class="fa-solid fa-arrow-right"></i>
+                                </button>
+                                <a class="secondary-action" href="https://github.com/Code-Ju-221" target="_blank" rel="noreferrer">
+                                    <i class="fa-brands fa-github"></i>
+                                    <span>GitHub</span>
+                                </a>
+                            </div>
+                        </div>
+
+                        <div class="hero-facts" aria-label="个人状态">
+                            <article class="fact-item">
+                                <span>Focus</span>
+                                <strong>Web &amp; Code</strong>
+                            </article>
+                            <article class="fact-item">
+                                <span>Status</span>
+                                <strong>Learning</strong>
+                            </article>
+                            <article class="fact-item">
+                                <span>Style</span>
+                                <strong>Keep Curious</strong>
+                            </article>
+                        </div>
+                    </div>
                 </section>
 
-                <section class="dashboard-grid" aria-label="Workspace overview">
-                    <article class="panel feature-panel">
-                        <header class="panel-heading">
-                            <div>
-                                <span class="panel-kicker">Main area</span>
-                                <h2 id="panelTitle">Start with a clear canvas</h2>
-                            </div>
-                            <button class="quiet-button" type="button" aria-label="More options">
-                                <i class="fa-solid fa-ellipsis"></i>
-                            </button>
-                        </header>
-
-                        <div class="canvas-placeholder">
-                            <div class="canvas-symbol"><i class="fa-regular fa-compass"></i></div>
-                            <h3>Ready for your theme</h3>
-                            <p>The structure is in place. Content and product features can be added next.</p>
-                            <button type="button" class="text-action">Explore layout <i class="fa-solid fa-arrow-right"></i></button>
+                <section class="portfolio-section" id="about" data-section-label="基本信息">
+                    <header class="section-heading">
+                        <div>
+                            <p class="section-index">01 / ABOUT</p>
+                            <h2>基本信息</h2>
                         </div>
-                    </article>
+                        <p>先认识我，再了解我正在做的事情。</p>
+                    </header>
 
-                    <aside class="panel quick-panel">
-                        <header class="panel-heading compact">
-                            <div>
-                                <span class="panel-kicker">Shortcuts</span>
-                                <h2>Quick access</h2>
-                            </div>
-                        </header>
+                    <div class="about-grid">
+                        <article class="panel story-panel">
+                            <span class="panel-icon"><i class="fa-regular fa-user"></i></span>
+                            <h3>关于我</h3>
+                            <p>这里可以填写你的个人简介，例如你的学习方向、兴趣、目标，以及你希望通过项目解决什么问题。</p>
+                            <p class="edit-hint">后续把这段占位内容替换成你的真实介绍。</p>
+                        </article>
 
-                        <div class="shortcut-list">
-                            <button type="button" class="shortcut-row">
-                                <span class="shortcut-icon red"><i class="fa-regular fa-folder-open"></i></span>
-                                <span><strong>Recent items</strong><small>Open your latest work</small></span>
-                                <i class="fa-solid fa-chevron-right"></i>
-                            </button>
-                            <button type="button" class="shortcut-row">
-                                <span class="shortcut-icon green"><i class="fa-regular fa-circle-check"></i></span>
-                                <span><strong>Activity</strong><small>Review recent updates</small></span>
-                                <i class="fa-solid fa-chevron-right"></i>
-                            </button>
-                            <button type="button" class="shortcut-row">
-                                <span class="shortcut-icon gold"><i class="fa-regular fa-star"></i></span>
-                                <span><strong>Saved</strong><small>Return to favourites</small></span>
-                                <i class="fa-solid fa-chevron-right"></i>
-                            </button>
+                        <article class="panel details-panel">
+                            <div class="detail-row"><span>昵称</span><strong data-username>未填写</strong></div>
+                            <div class="detail-row"><span>学校</span><strong>待填写</strong></div>
+                            <div class="detail-row"><span>专业</span><strong>待填写</strong></div>
+                            <div class="detail-row"><span>年级</span><strong>待填写</strong></div>
+                            <div class="detail-row"><span>所在城市</span><strong>待填写</strong></div>
+                            <div class="detail-row"><span>兴趣方向</span><strong>前端 / 编程 / 项目实践</strong></div>
+                        </article>
+                    </div>
+                </section>
+
+                <section class="portfolio-section" id="skills" data-section-label="技能方向">
+                    <header class="section-heading">
+                        <div>
+                            <p class="section-index">02 / SKILLS</p>
+                            <h2>技能方向</h2>
                         </div>
-                    </aside>
+                        <p>用分类而不是虚假的百分比展示能力。</p>
+                    </header>
 
-                    <article class="panel activity-panel">
-                        <header class="panel-heading compact">
-                            <div>
-                                <span class="panel-kicker">Today</span>
-                                <h2>Activity line</h2>
-                            </div>
-                            <span class="live-status"><i></i> System ready</span>
-                        </header>
+                    <div class="skill-grid">
+                        <article class="panel skill-card">
+                            <span class="skill-icon red"><i class="fa-solid fa-window-maximize"></i></span>
+                            <h3>前端开发</h3>
+                            <p>构建页面结构、视觉样式与浏览器交互。</p>
+                            <div class="tag-list"><span>HTML</span><span>CSS</span><span>JavaScript</span></div>
+                        </article>
+                        <article class="panel skill-card">
+                            <span class="skill-icon gold"><i class="fa-solid fa-database"></i></span>
+                            <h3>后端服务</h3>
+                            <p>用户认证、数据存储与云端服务配置。</p>
+                            <div class="tag-list"><span>Supabase</span><span>Auth</span><span>PostgreSQL</span></div>
+                        </article>
+                        <article class="panel skill-card">
+                            <span class="skill-icon green"><i class="fa-solid fa-terminal"></i></span>
+                            <h3>编程基础</h3>
+                            <p>持续积累程序设计和问题解决能力。</p>
+                            <div class="tag-list"><span>Python</span><span>C</span><span>Git</span></div>
+                        </article>
+                    </div>
+                </section>
 
-                        <div class="activity-track" aria-hidden="true">
-                            <span class="track-line"></span>
-                            <span class="track-point active"></span>
-                            <span class="track-point"></span>
-                            <span class="track-point"></span>
-                            <span class="track-point"></span>
+                <section class="portfolio-section" id="projects" data-section-label="代表项目">
+                    <header class="section-heading">
+                        <div>
+                            <p class="section-index">03 / PROJECTS</p>
+                            <h2>代表项目</h2>
                         </div>
-                    </article>
+                        <p>展示过程、技术与结果，而不只是项目名称。</p>
+                    </header>
+
+                    <div class="project-list">
+                        <article class="panel project-card featured-project">
+                            <div class="project-cover">
+                                <span class="cover-ring ring-large"></span>
+                                <span class="cover-ring ring-small"></span>
+                                <i class="fa-solid fa-fingerprint"></i>
+                            </div>
+                            <div class="project-content">
+                                <div class="project-meta"><span>FEATURED</span><time>2026</time></div>
+                                <h3>个人数字档案网站</h3>
+                                <p>从登录界面开始，逐步完成 Supabase 邮箱验证、用户登录、动态开场以及个人档案主页。</p>
+                                <div class="tag-list"><span>HTML</span><span>CSS</span><span>JavaScript</span><span>Supabase</span></div>
+                                <button class="project-toggle" type="button" aria-expanded="false">
+                                    <span>查看项目详情</span><i class="fa-solid fa-chevron-down"></i>
+                                </button>
+                                <div class="project-details">
+                                    <dl>
+                                        <div><dt>目标</dt><dd>制作一个可以上线、具有完整认证功能的个人网站。</dd></div>
+                                        <div><dt>实现</dt><dd>QQ 邮箱验证码注册、登录状态管理、GitHub Pages 部署和响应式界面。</dd></div>
+                                        <div><dt>职责</dt><dd>需求规划、视觉选择、前端开发、Supabase 配置与上线测试。</dd></div>
+                                    </dl>
+                                    <a href="https://github.com/Code-Ju-221/My-first-Demo" target="_blank" rel="noreferrer">查看仓库 <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+                                </div>
+                            </div>
+                        </article>
+
+                        <article class="panel project-card placeholder-project">
+                            <div class="placeholder-symbol"><i class="fa-solid fa-plus"></i></div>
+                            <div>
+                                <span class="panel-kicker">NEXT PROJECT</span>
+                                <h3>下一个作品</h3>
+                                <p>以后可以在这里加入课程设计、比赛作品、编程项目或硬件实验。</p>
+                            </div>
+                        </article>
+                    </div>
+                </section>
+
+                <section class="portfolio-section" id="timeline" data-section-label="经历时间线">
+                    <header class="section-heading">
+                        <div>
+                            <p class="section-index">04 / JOURNEY</p>
+                            <h2>经历时间线</h2>
+                        </div>
+                        <p>把学习过程和阶段性成果连接起来。</p>
+                    </header>
+
+                    <div class="panel timeline-panel">
+                        <article class="timeline-item current">
+                            <div class="timeline-marker"></div>
+                            <time>现在</time>
+                            <div><h3>持续完善个人数字档案</h3><p>优化网站体验，并逐步补充真实的个人资料和作品。</p></div>
+                        </article>
+                        <article class="timeline-item">
+                            <div class="timeline-marker"></div>
+                            <time>2026</time>
+                            <div><h3>完成第一个完整网站认证流程</h3><p>学习 Supabase Auth、邮箱验证码和 GitHub Pages 部署。</p></div>
+                        </article>
+                        <article class="timeline-item muted-item">
+                            <div class="timeline-marker"></div>
+                            <time>未来</time>
+                            <div><h3>等待添加更多经历</h3><p>课程、比赛、证书和实践经历都可以继续补充。</p></div>
+                        </article>
+                    </div>
+                </section>
+
+                <section class="portfolio-section" id="achievements" data-section-label="成果证书">
+                    <header class="section-heading">
+                        <div>
+                            <p class="section-index">05 / ACHIEVEMENTS</p>
+                            <h2>成果证书</h2>
+                        </div>
+                        <p>只展示真实、值得记录的阶段成果。</p>
+                    </header>
+
+                    <div class="achievement-grid">
+                        <article class="panel achievement-card">
+                            <i class="fa-solid fa-trophy"></i>
+                            <h3>比赛与荣誉</h3>
+                            <p>暂未添加，后续可放入比赛奖项和荣誉记录。</p>
+                        </article>
+                        <article class="panel achievement-card">
+                            <i class="fa-regular fa-file-lines"></i>
+                            <h3>证书与课程</h3>
+                            <p>暂未添加，后续可展示证书图片和获得时间。</p>
+                        </article>
+                        <article class="panel achievement-card">
+                            <i class="fa-solid fa-chart-line"></i>
+                            <h3>成长数据</h3>
+                            <p>后续可接入 GitHub 数据或个人学习记录。</p>
+                        </article>
+                    </div>
+                </section>
+
+                <section class="portfolio-section contact-section" id="contact" data-section-label="联系方式">
+                    <div class="panel contact-panel">
+                        <div>
+                            <p class="section-index">06 / CONTACT</p>
+                            <h2>保持联系</h2>
+                            <p>目前先保留 GitHub 入口，邮箱等信息可以在确认公开范围后再添加。</p>
+                        </div>
+                        <div class="contact-actions">
+                            <a href="https://github.com/Code-Ju-221" target="_blank" rel="noreferrer"><i class="fa-brands fa-github"></i><span>GitHub</span></a>
+                            <button type="button" disabled><i class="fa-regular fa-envelope"></i><span>邮箱待填写</span></button>
+                        </div>
+                    </div>
                 </section>
 
                 <p class="session-message" id="sessionMessage" aria-live="polite"></p>
