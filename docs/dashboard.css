@@ -363,7 +363,7 @@ a:focus-visible {
     display: block;
     border-radius: 50%;
     object-fit: cover;
-    object-position: 50% 5%;
+    object-position: 50% 27%;
 }
 
 .user-meta {
