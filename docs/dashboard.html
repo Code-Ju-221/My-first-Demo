@@ -46,9 +46,9 @@
                     <span class="nav-icon"><i class="fa-solid fa-timeline"></i></span>
                     <span class="nav-label">经历时间线</span>
                 </button>
-                <button class="nav-item" type="button" data-target="achievements" title="成果证书">
+                <button class="nav-item" type="button" data-target="achievements" title="成果记录">
                     <span class="nav-icon"><i class="fa-solid fa-award"></i></span>
-                    <span class="nav-label">成果证书</span>
+                    <span class="nav-label">成果记录</span>
                 </button>
                 <button class="nav-item" type="button" data-target="contact" title="联系方式">
                     <span class="nav-icon"><i class="fa-regular fa-paper-plane"></i></span>
@@ -72,8 +72,8 @@
                 </div>
 
                 <div class="topbar-actions">
-                    <button class="icon-button" id="scrollTopButton" type="button" aria-label="返回顶部" title="返回顶部">
-                        <i class="fa-solid fa-arrow-up"></i>
+                    <button class="icon-button" id="scrollTopButton" type="button" aria-label="返回个人概览" title="返回个人概览">
+                        <i class="fa-solid fa-house"></i>
                     </button>
                     <button class="icon-button top-logout" id="topLogoutButton" type="button" aria-label="退出登录" title="退出登录">
                         <i class="fa-solid fa-arrow-right-from-bracket"></i>
@@ -90,7 +90,7 @@
             </header>
 
             <main class="main-content">
-                <section class="portfolio-section hero-section" id="home" data-section-label="个人概览">
+                <section class="portfolio-section hero-section is-active" id="home" data-section-label="个人概览" tabindex="-1">
                     <div class="hero-panel panel">
                         <div class="profile-visual">
                             <span class="profile-orbit orbit-a"></span>
@@ -104,7 +104,7 @@
                         <div class="hero-copy">
                             <p class="eyebrow"><span id="greeting">你好</span>，欢迎来到我的个人空间</p>
                             <h1>鞠泽轩的数字档案</h1>
-                            <p class="hero-description">西安理工大学自动化专业大二学生，关注人工智能、嵌入式开发与软硬件结合方向，在持续学习中用项目记录自己的成长。</p>
+                            <p class="hero-description">西安理工大学自动化专业大二学生，正在探索 AI 与 IoT 的结合方式，用网页、嵌入式硬件和真实项目记录自己的成长。</p>
 
                             <div class="hero-actions">
                                 <button class="primary-action" type="button" data-scroll-to="projects">
@@ -121,7 +121,7 @@
                         <div class="hero-facts" aria-label="个人状态">
                             <article class="fact-item">
                                 <span>Focus</span>
-                                <strong>AI &amp; Automation</strong>
+                                <strong>AI &amp; IoT</strong>
                             </article>
                             <article class="fact-item">
                                 <span>Status</span>
@@ -135,7 +135,7 @@
                     </div>
                 </section>
 
-                <section class="portfolio-section" id="about" data-section-label="基本信息">
+                <section class="portfolio-section" id="about" data-section-label="基本信息" tabindex="-1" aria-hidden="true">
                     <header class="section-heading">
                         <div>
                             <p class="section-index">01 / ABOUT</p>
@@ -148,8 +148,8 @@
                         <article class="panel story-panel">
                             <span class="panel-icon"><i class="fa-regular fa-user"></i></span>
                             <h3>关于我</h3>
-                            <p>我叫鞠泽轩，19岁，现就读于西安理工大学自动化专业，是自卓254班的大二学生。我对人工智能、自动控制与软硬件结合方向具有浓厚兴趣，希望通过持续学习和项目实践，把想法转化为真正能够运行的作品。</p>
-                            <p class="edit-hint">目前正在继续积累网页开发、嵌入式系统与AI应用方面的实践经验。</p>
+                            <p>我叫鞠泽轩，19岁，现就读于西安理工大学自动化专业，是自卓254班的大二学生。我关注人工智能与物联网，希望把软件、云端和实体硬件连接起来，将想法做成真正可以运行和展示的作品。</p>
+                            <p class="edit-hint">性格稳重，也愿意为生活保留趣味；编程之外喜欢羽毛球和摄影。</p>
                         </article>
 
                         <article class="panel details-panel">
@@ -159,13 +159,13 @@
                             <div class="detail-row"><span>专业</span><strong>自动化</strong></div>
                             <div class="detail-row"><span>年级</span><strong>大二</strong></div>
                             <div class="detail-row"><span>班级</span><strong>自卓254</strong></div>
-                            <div class="detail-row"><span>兴趣方向</span><strong>AI / 自动控制</strong></div>
-                            <div class="detail-row"><span>实践方向</span><strong>嵌入式 / Web</strong></div>
+                            <div class="detail-row"><span>技术方向</span><strong>AI / IoT</strong></div>
+                            <div class="detail-row"><span>兴趣爱好</span><strong>羽毛球 / 摄影</strong></div>
                         </article>
                     </div>
                 </section>
 
-                <section class="portfolio-section" id="skills" data-section-label="技能方向">
+                <section class="portfolio-section" id="skills" data-section-label="技能方向" tabindex="-1" aria-hidden="true">
                     <header class="section-heading">
                         <div>
                             <p class="section-index">02 / SKILLS</p>
@@ -177,26 +177,26 @@
                     <div class="skill-grid">
                         <article class="panel skill-card">
                             <span class="skill-icon red"><i class="fa-solid fa-brain"></i></span>
-                            <h3>人工智能与自动化</h3>
-                            <p>关注AI技术、自动控制以及智能系统在实际场景中的应用。</p>
-                            <div class="tag-list"><span>AI</span><span>自动控制</span><span>持续学习</span></div>
+                            <h3>AI 与物联网</h3>
+                            <p>关注人工智能与联网硬件的结合，希望逐步完成具有感知、连接和交互能力的智能设备。</p>
+                            <div class="tag-list"><span>AI</span><span>IoT</span><span>自动控制</span></div>
                         </article>
                         <article class="panel skill-card">
                             <span class="skill-icon gold"><i class="fa-solid fa-microchip"></i></span>
                             <h3>嵌入式开发</h3>
-                            <p>能够使用多种常见微控制器完成基础控制与功能开发。</p>
-                            <div class="tag-list"><span>STC89C52</span><span>STM32F103C8T6</span><span>ESP32</span></div>
+                            <p>使用 C 语言和常见嵌入式工具完成微控制器实验、外设驱动与联网项目。</p>
+                            <div class="tag-list"><span>C</span><span>ESP32</span><span>STM32F103C8T6</span><span>STC89C52</span><span>Keil</span><span>STM32CubeMX</span><span>PlatformIO</span><span>Arduino IDE</span></div>
                         </article>
                         <article class="panel skill-card">
                             <span class="skill-icon green"><i class="fa-solid fa-globe"></i></span>
                             <h3>网页与云端</h3>
-                            <p>通过个人网站项目学习前端交互、用户认证和在线部署。</p>
+                            <p>通过真实网站项目学习前端交互、云端认证、响应式设计和在线部署。</p>
                             <div class="tag-list"><span>HTML</span><span>CSS</span><span>JavaScript</span><span>Supabase</span></div>
                         </article>
                     </div>
                 </section>
 
-                <section class="portfolio-section" id="projects" data-section-label="代表项目">
+                <section class="portfolio-section" id="projects" data-section-label="代表项目" tabindex="-1" aria-hidden="true">
                     <header class="section-heading">
                         <div>
                             <p class="section-index">03 / PROJECTS</p>
@@ -206,43 +206,58 @@
                     </header>
 
                     <div class="project-list">
-                        <article class="panel project-card featured-project">
-                            <div class="project-cover">
-                                <span class="cover-ring ring-large"></span>
-                                <span class="cover-ring ring-small"></span>
-                                <i class="fa-solid fa-fingerprint"></i>
-                            </div>
-                            <div class="project-content">
-                                <div class="project-meta"><span>FEATURED</span><time>2026</time></div>
-                                <h3>个人数字档案网站</h3>
-                                <p>从登录界面开始，逐步完成 Supabase 邮箱验证、用户登录、动态开场以及个人档案主页。</p>
+                        <article class="panel project-card project-card-featured">
+                            <div class="project-symbol"><i class="fa-solid fa-fingerprint"></i></div>
+                            <div class="project-card-copy">
+                                <div class="project-meta"><span>FEATURED</span><time>持续开发</time></div>
+                                <h3><button class="project-title" type="button" data-project="portfolio">个人数字档案网站</button></h3>
+                                <p>包含邮箱验证码注册、登录鉴权、动态开场与独立栏目切换的个人展示网站。</p>
                                 <div class="tag-list"><span>HTML</span><span>CSS</span><span>JavaScript</span><span>Supabase</span></div>
-                                <button class="project-toggle" type="button" aria-expanded="false">
-                                    <span>查看项目详情</span><i class="fa-solid fa-chevron-down"></i>
-                                </button>
-                                <div class="project-details">
-                                    <dl>
-                                        <div><dt>目标</dt><dd>制作一个可以上线、具有完整认证功能的个人网站。</dd></div>
-                                        <div><dt>实现</dt><dd>QQ 邮箱验证码注册、登录状态管理、GitHub Pages 部署和响应式界面。</dd></div>
-                                        <div><dt>职责</dt><dd>需求规划、视觉选择、前端开发、Supabase 配置与上线测试。</dd></div>
-                                    </dl>
-                                    <a href="https://github.com/Code-Ju-221/My-first-Demo" target="_blank" rel="noreferrer">查看仓库 <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
-                                </div>
                             </div>
+                            <button class="project-open" type="button" data-project="portfolio" aria-label="查看个人数字档案网站详情">
+                                <span>查看详情</span><i class="fa-solid fa-arrow-right"></i>
+                            </button>
                         </article>
 
-                        <article class="panel project-card placeholder-project">
-                            <div class="placeholder-symbol"><i class="fa-solid fa-plus"></i></div>
-                            <div>
-                                <span class="panel-kicker">NEXT PROJECT</span>
-                                <h3>下一个作品</h3>
-                                <p>以后可以在这里加入课程设计、比赛作品、编程项目或硬件实验。</p>
-                            </div>
+                        <article class="panel project-card">
+                            <div class="project-symbol gold"><i class="fa-solid fa-microchip"></i></div>
+                            <div class="project-meta"><span>LEARNING LOG</span><time>持续更新</time></div>
+                            <h3><button class="project-title" type="button" data-project="foundation">ESP32 基础学习记录</button></h3>
+                            <p>以代码仓库记录 ESP32 外设、通信与控制实验，形成可回看的嵌入式学习路径。</p>
+                            <div class="tag-list"><span>ESP32</span><span>C</span><span>PlatformIO</span></div>
+                            <button class="project-open" type="button" data-project="foundation"><span>查看详情</span><i class="fa-solid fa-arrow-right"></i></button>
+                        </article>
+
+                        <article class="panel project-card">
+                            <div class="project-symbol green"><i class="fa-solid fa-address-card"></i></div>
+                            <div class="project-meta"><span>HARDWARE</span><time>持续完善</time></div>
+                            <h3><button class="project-title" type="button" data-project="eid">ESP32 智能电子名片</button></h3>
+                            <p>连接 ESP32、TFT 屏幕、Supabase 和 Web 管理端的端云协同电子名片系统。</p>
+                            <div class="tag-list"><span>ESP32</span><span>ST7735</span><span>Supabase</span><span>IoT</span></div>
+                            <button class="project-open" type="button" data-project="eid"><span>播放演示</span><i class="fa-solid fa-play"></i></button>
+                        </article>
+
+                        <article class="panel project-card">
+                            <div class="project-symbol"><i class="fa-solid fa-cake-candles"></i></div>
+                            <div class="project-meta"><span>WEB ANIMATION</span><time>2026.11.02</time></div>
+                            <h3><button class="project-title" type="button" data-project="birthday">Happy Birthday Mom</button></h3>
+                            <p>以逐层落下的动画蛋糕为核心，为妈妈制作的轻量生日祝福网页。</p>
+                            <div class="tag-list"><span>HTML</span><span>CSS Animation</span></div>
+                            <button class="project-open" type="button" data-project="birthday"><span>在线演示</span><i class="fa-solid fa-arrow-up-right-from-square"></i></button>
+                        </article>
+
+                        <article class="panel project-card">
+                            <div class="project-symbol rose"><i class="fa-solid fa-heart"></i></div>
+                            <div class="project-meta"><span>INTERACTIVE WEB</span><time>2026.11.01</time></div>
+                            <h3><button class="project-title" type="button" data-project="valentine">Will You Be My Valentine</button></h3>
+                            <p>通过 Yes 与 No 按钮的尺寸变化和确认动画，完成一个轻松有趣的互动网页。</p>
+                            <div class="tag-list"><span>HTML</span><span>CSS</span><span>JavaScript</span></div>
+                            <button class="project-open" type="button" data-project="valentine"><span>在线演示</span><i class="fa-solid fa-arrow-up-right-from-square"></i></button>
                         </article>
                     </div>
                 </section>
 
-                <section class="portfolio-section" id="timeline" data-section-label="经历时间线">
+                <section class="portfolio-section" id="timeline" data-section-label="经历时间线" tabindex="-1" aria-hidden="true">
                     <header class="section-heading">
                         <div>
                             <p class="section-index">04 / JOURNEY</p>
@@ -255,26 +270,31 @@
                         <article class="timeline-item current">
                             <div class="timeline-marker"></div>
                             <time>现在</time>
-                            <div><h3>持续完善个人数字档案</h3><p>优化网站体验，并逐步补充真实的个人资料和作品。</p></div>
+                            <div><h3>持续完善个人网站与电子名片</h3><p>优化个人数字档案，并继续联调电子名片的设备端云数据读取。</p></div>
                         </article>
                         <article class="timeline-item">
                             <div class="timeline-marker"></div>
-                            <time>2026</time>
-                            <div><h3>完成第一个完整网站认证流程</h3><p>学习 Supabase Auth、邮箱验证码和 GitHub Pages 部署。</p></div>
+                            <time>2026.11</time>
+                            <div><h3>完成多个独立网页作品</h3><p>制作生日动画、互动网页和带有 Supabase 认证流程的个人网站。</p></div>
                         </article>
-                        <article class="timeline-item muted-item">
+                        <article class="timeline-item">
                             <div class="timeline-marker"></div>
-                            <time>未来</time>
-                            <div><h3>等待添加更多经历</h3><p>课程、比赛、证书和实践经历都可以继续补充。</p></div>
+                            <time>2026.08</time>
+                            <div><h3>系统学习 ESP32 与网页开发</h3><p>完成多项 ESP32 基础实验，并实现智能电子名片软硬件原型。</p></div>
+                        </article>
+                        <article class="timeline-item">
+                            <div class="timeline-marker"></div>
+                            <time>2025</time>
+                            <div><h3>进入西安理工大学</h3><p>就读自动化专业，开始建立自己的技术方向与项目实践体系。</p></div>
                         </article>
                     </div>
                 </section>
 
-                <section class="portfolio-section" id="achievements" data-section-label="成果证书">
+                <section class="portfolio-section" id="achievements" data-section-label="成果记录" tabindex="-1" aria-hidden="true">
                     <header class="section-heading">
                         <div>
                             <p class="section-index">05 / ACHIEVEMENTS</p>
-                            <h2>成果证书</h2>
+                            <h2>成果记录</h2>
                         </div>
                         <p>只展示真实、值得记录的阶段成果。</p>
                     </header>
@@ -282,32 +302,33 @@
                     <div class="achievement-grid">
                         <article class="panel achievement-card">
                             <i class="fa-solid fa-trophy"></i>
-                            <h3>比赛与荣誉</h3>
-                            <p>暂未添加，后续可放入比赛奖项和荣誉记录。</p>
+                            <h3>理奥杯参赛项目</h3>
+                            <p>ESP32智能电子名片参加2026年学校理奥杯，比赛结果尚未公布。</p>
                         </article>
                         <article class="panel achievement-card">
                             <i class="fa-regular fa-file-lines"></i>
-                            <h3>证书与课程</h3>
-                            <p>暂未添加，后续可展示证书图片和获得时间。</p>
+                            <h3>独立项目实践</h3>
+                            <p>独立完成个人网站、ESP32电子名片及多个网页互动作品。</p>
                         </article>
                         <article class="panel achievement-card">
                             <i class="fa-solid fa-chart-line"></i>
-                            <h3>成长数据</h3>
-                            <p>后续可接入 GitHub 数据或个人学习记录。</p>
+                            <h3>持续学习记录</h3>
+                            <p>通过GitHub持续整理ESP32基础实验与项目代码，沉淀可复用经验。</p>
                         </article>
                     </div>
                 </section>
 
-                <section class="portfolio-section contact-section" id="contact" data-section-label="联系方式">
+                <section class="portfolio-section contact-section" id="contact" data-section-label="联系方式" tabindex="-1" aria-hidden="true">
                     <div class="panel contact-panel">
                         <div>
                             <p class="section-index">06 / CONTACT</p>
                             <h2>保持联系</h2>
-                            <p>目前先保留 GitHub 入口，邮箱等信息可以在确认公开范围后再添加。</p>
+                            <p>如果你对我的项目、学习方向或合作想法感兴趣，可以通过以下方式联系我。</p>
                         </div>
                         <div class="contact-actions">
                             <a href="https://github.com/Code-Ju-221" target="_blank" rel="noreferrer"><i class="fa-brands fa-github"></i><span>GitHub</span></a>
-                            <button type="button" disabled><i class="fa-regular fa-envelope"></i><span>邮箱待填写</span></button>
+                            <a href="mailto:3367194703@qq.com"><i class="fa-regular fa-envelope"></i><span>QQ邮箱</span></a>
+                            <a href="mailto:200721jzx@gmail.com"><i class="fa-brands fa-google"></i><span>Gmail</span></a>
                         </div>
                     </div>
                 </section>
@@ -315,6 +336,32 @@
                 <p class="session-message" id="sessionMessage" aria-live="polite"></p>
             </main>
         </div>
+    </div>
+
+    <div class="project-modal" id="projectModal" hidden>
+        <button class="project-modal-backdrop" type="button" data-close-project aria-label="关闭项目详情"></button>
+        <section class="project-dialog" role="dialog" aria-modal="true" aria-labelledby="projectDialogTitle">
+            <header class="project-dialog-header">
+                <div>
+                    <span id="projectDialogKind">PROJECT</span>
+                    <strong id="projectDialogStatus">持续开发</strong>
+                </div>
+                <button class="project-close" type="button" data-close-project aria-label="关闭项目详情">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </header>
+            <div class="project-dialog-body">
+                <div class="project-demo" id="projectDemo"></div>
+                <div class="project-story">
+                    <p class="section-index" id="projectDialogDate">2026</p>
+                    <h2 id="projectDialogTitle">项目名称</h2>
+                    <p class="project-dialog-summary" id="projectDialogSummary"></p>
+                    <div class="tag-list" id="projectDialogTags"></div>
+                    <dl class="project-facts" id="projectDialogFacts"></dl>
+                    <div class="project-links" id="projectDialogLinks"></div>
+                </div>
+            </div>
+        </section>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.102.0"></script>
