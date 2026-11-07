@@ -169,12 +169,12 @@ a:focus-visible {
 }
 
 .brand-copy strong {
-    font-size: 14px;
+    font-size: 15px;
 }
 
 .brand-copy span {
     color: var(--muted);
-    font-size: 8px;
+    font-size: 9px;
     letter-spacing: .7px;
     text-transform: uppercase;
 }
@@ -236,7 +236,7 @@ a:focus-visible {
     min-width: 112px;
     opacity: 0;
     transform: translateX(-10px);
-    font-size: 12px;
+    font-size: 13px;
     font-weight: 600;
     white-space: nowrap;
     transition: opacity .2s ease, transform .4s var(--ease-out);
@@ -291,7 +291,7 @@ a:focus-visible {
 .topbar-location {
     gap: 10px;
     color: var(--muted);
-    font-size: 11px;
+    font-size: 12.5px;
 }
 
 .topbar-location strong {
@@ -363,7 +363,7 @@ a:focus-visible {
     display: block;
     border-radius: 50%;
     object-fit: cover;
-    object-position: 50% 27%;
+    object-position: 50% 50%;
 }
 
 .user-meta {
@@ -375,14 +375,14 @@ a:focus-visible {
 .user-meta strong {
     max-width: 100px;
     overflow: hidden;
-    font-size: 11.5px;
+    font-size: 13px;
     text-overflow: ellipsis;
     white-space: nowrap;
 }
 
 .user-meta span {
     color: var(--green);
-    font-size: 9px;
+    font-size: 10.5px;
 }
 
 .main-content {
@@ -515,7 +515,7 @@ a:focus-visible {
 .section-index,
 .panel-kicker {
     color: var(--muted);
-    font-size: 9.5px;
+    font-size: 11px;
     font-weight: 600;
     letter-spacing: 1.25px;
     text-transform: uppercase;
@@ -539,7 +539,7 @@ a:focus-visible {
     max-width: 600px;
     margin-top: 17px;
     color: var(--muted);
-    font-size: 12px;
+    font-size: 14px;
     line-height: 1.9;
 }
 
@@ -558,7 +558,7 @@ a:focus-visible {
     padding: 0 19px;
     border-radius: 14px;
     cursor: pointer;
-    font-size: 10.5px;
+    font-size: 12px;
     font-weight: 600;
     transition: transform .3s var(--ease-out), box-shadow .3s ease;
 }
@@ -594,7 +594,7 @@ a:focus-visible {
 .fact-item span {
     display: block;
     color: var(--muted);
-    font-size: 8px;
+    font-size: 9.5px;
     letter-spacing: 1px;
     text-transform: uppercase;
 }
@@ -602,7 +602,7 @@ a:focus-visible {
 .fact-item strong {
     display: block;
     margin-top: 4px;
-    font-size: 11px;
+    font-size: 12.5px;
 }
 
 .section-heading {
@@ -624,7 +624,7 @@ a:focus-visible {
 .section-heading > p {
     max-width: 420px;
     color: var(--muted);
-    font-size: 10.5px;
+    font-size: 12.5px;
     text-align: right;
 }
 
@@ -656,7 +656,7 @@ a:focus-visible {
 .skill-card h3,
 .achievement-card h3 {
     margin-top: 20px;
-    font-size: 16px;
+    font-size: 18px;
 }
 
 .story-panel > p,
@@ -664,14 +664,14 @@ a:focus-visible {
 .achievement-card > p {
     margin-top: 8px;
     color: var(--muted);
-    font-size: 10.5px;
+    font-size: 12.5px;
     line-height: 1.8;
 }
 
 .story-panel .edit-hint {
     margin-top: 18px;
     color: var(--accent);
-    font-size: 9px;
+    font-size: 10.5px;
 }
 
 .details-panel {
@@ -692,12 +692,12 @@ a:focus-visible {
 
 .detail-row span {
     color: var(--muted);
-    font-size: 8.5px;
+    font-size: 10px;
 }
 
 .detail-row strong {
     margin-top: 4px;
-    font-size: 11px;
+    font-size: 12.5px;
 }
 
 .skill-grid,
@@ -735,7 +735,7 @@ a:focus-visible {
     color: #777;
     background: rgba(255, 255, 255, .25);
     box-shadow: inset 2px 2px 4px rgba(184, 190, 204, .3), inset -2px -2px 4px rgba(255, 255, 255, .75);
-    font-size: 8px;
+    font-size: 9.5px;
     font-weight: 600;
 }
 
@@ -819,7 +819,7 @@ a:focus-visible {
     align-items: center;
     justify-content: space-between;
     color: var(--muted);
-    font-size: 8.5px;
+    font-size: 10px;
     letter-spacing: 1px;
 }
 
@@ -837,7 +837,7 @@ a:focus-visible {
 .project-title {
     color: var(--ink);
     cursor: pointer;
-    font-size: 20px;
+    font-size: 22px;
     font-weight: 700;
     letter-spacing: -.65px;
     text-align: left;
@@ -845,7 +845,7 @@ a:focus-visible {
 }
 
 .project-card-featured .project-title {
-    font-size: 28px;
+    font-size: 30px;
 }
 
 .project-title:hover {
@@ -857,7 +857,7 @@ a:focus-visible {
     z-index: 1;
     margin-top: 10px;
     color: var(--muted);
-    font-size: 10.5px;
+    font-size: 12.5px;
     line-height: 1.8;
 }
 
@@ -877,7 +877,7 @@ a:focus-visible {
     padding-top: 24px;
     color: var(--accent);
     cursor: pointer;
-    font-size: 10px;
+    font-size: 11.5px;
     font-weight: 600;
 }
 
@@ -915,7 +915,7 @@ a:focus-visible {
 
 .timeline-item time {
     color: var(--muted);
-    font-size: 9px;
+    font-size: 10.5px;
     text-align: right;
 }
 
@@ -937,13 +937,13 @@ a:focus-visible {
 }
 
 .timeline-item h3 {
-    font-size: 13px;
+    font-size: 15px;
 }
 
 .timeline-item p {
     margin-top: 5px;
     color: var(--muted);
-    font-size: 9.5px;
+    font-size: 11.5px;
 }
 
 .muted-item {
@@ -979,7 +979,7 @@ a:focus-visible {
     max-width: 600px;
     margin-top: 9px;
     color: var(--muted);
-    font-size: 10.5px;
+    font-size: 12.5px;
 }
 
 .contact-actions {
@@ -996,7 +996,7 @@ a:focus-visible {
     justify-content: center;
     gap: 9px;
     border-radius: 14px;
-    font-size: 10px;
+    font-size: 11.5px;
     box-shadow: -4px -4px 9px rgba(255, 255, 255, .84), 4px 4px 9px rgba(190, 190, 190, .64);
 }
 
@@ -1020,7 +1020,7 @@ a:focus-visible {
 .session-message {
     min-height: 18px;
     color: var(--accent);
-    font-size: 10px;
+    font-size: 11.5px;
     text-align: center;
 }
 
@@ -1096,7 +1096,7 @@ body.modal-open {
 
 .project-dialog-header span {
     color: var(--accent);
-    font-size: 9px;
+    font-size: 10.5px;
     font-weight: 700;
     letter-spacing: 1.15px;
 }
@@ -1106,7 +1106,7 @@ body.modal-open {
     border-radius: 999px;
     color: var(--green);
     background: rgba(54, 120, 90, .08);
-    font-size: 8px;
+    font-size: 9.5px;
 }
 
 .project-close {
@@ -1178,12 +1178,12 @@ body.modal-open {
 .project-demo-concept strong {
     display: block;
     color: var(--ink);
-    font-size: 15px;
+    font-size: 17px;
 }
 
 .project-demo-concept p {
     margin-top: 9px;
-    font-size: 10px;
+    font-size: 11.5px;
     line-height: 1.75;
 }
 
@@ -1202,7 +1202,7 @@ body.modal-open {
 .project-dialog-summary {
     margin-top: 15px;
     color: var(--muted);
-    font-size: 10.5px;
+    font-size: 12px;
     line-height: 1.85;
 }
 
@@ -1222,13 +1222,13 @@ body.modal-open {
 
 .project-facts dt {
     color: var(--accent);
-    font-size: 9px;
+    font-size: 10.5px;
     font-weight: 600;
 }
 
 .project-facts dd {
     color: var(--muted);
-    font-size: 9px;
+    font-size: 10.5px;
     line-height: 1.65;
 }
 
@@ -1248,7 +1248,7 @@ body.modal-open {
     border-radius: 13px;
     color: var(--ink);
     box-shadow: -4px -4px 9px rgba(255, 255, 255, .82), 4px 4px 9px rgba(190, 190, 190, .62);
-    font-size: 9.5px;
+    font-size: 11px;
     font-weight: 600;
     transition: color .25s ease, transform .3s var(--ease-out);
 }
