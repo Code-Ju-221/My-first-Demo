@@ -986,6 +986,7 @@ a:focus-visible {
     --photo-scale: 1;
     --size-delta: 0%;
     --photo-standard-radius: clamp(18px, 1.8vw, 27px);
+    --photo-standard-clip: polygon(0 0, 50% 0, 100% 0, 100% 50%, 100% 100%, 50% 100%, 0 100%, 0 50%, 0 0, 0 0);
     position: absolute;
     z-index: var(--photo-z, 2);
     top: var(--photo-top);
@@ -997,6 +998,7 @@ a:focus-visible {
     padding: 0;
     border: 1px solid rgba(255, 255, 255, .64);
     border-radius: var(--photo-morph-radius, var(--photo-standard-radius));
+    clip-path: var(--photo-clip, var(--photo-standard-clip));
     cursor: zoom-in;
     background: #d6d6d6;
     box-shadow:
@@ -1011,6 +1013,7 @@ a:focus-visible {
         width var(--morph-duration, var(--drift-duration, 7s)) cubic-bezier(.36, 0, .18, 1),
         aspect-ratio var(--morph-duration, var(--drift-duration, 7s)) cubic-bezier(.36, 0, .18, 1),
         border-radius var(--morph-duration, var(--drift-duration, 7s)) cubic-bezier(.36, 0, .18, 1),
+        clip-path var(--morph-duration, var(--drift-duration, 7s)) cubic-bezier(.36, 0, .18, 1),
         transform .62s cubic-bezier(.2, .78, .24, 1),
         box-shadow .62s ease,
         filter .58s ease,
@@ -1065,6 +1068,7 @@ a:focus-visible {
     width: var(--photo-width);
     aspect-ratio: var(--photo-ratio, 3 / 2);
     border-radius: var(--photo-standard-radius);
+    clip-path: var(--photo-standard-clip);
     box-shadow:
         -12px -12px 28px rgba(255, 255, 255, .78),
         20px 26px 46px rgba(107, 107, 107, .42);

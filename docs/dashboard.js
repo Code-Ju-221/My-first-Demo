@@ -165,30 +165,52 @@ let photographyMotionActive = false;
 let photoParallaxFrame = null;
 let pendingPhotoPointer = null;
 const photoMotionTimers = new Array(photoButtons.length).fill(null);
+const fullPhotoClip = "polygon(0 0, 50% 0, 100% 0, 100% 50%, 100% 100%, 50% 100%, 0 100%, 0 50%, 0 0, 0 0)";
+const photoGeometryPresets = [
+    { ratio: null, radius: null, clip: fullPhotoClip },
+    { ratio: "1 / 1", radius: "0px", clip: fullPhotoClip },
+    { ratio: "1 / 1", radius: "50%", clip: fullPhotoClip },
+    { ratio: "1 / 1", radius: "0px", clip: "polygon(50% 0, 50% 0, 100% 50%, 100% 50%, 50% 100%, 50% 100%, 0 50%, 0 50%, 50% 0, 50% 0)" },
+    { ratio: "1 / 1", radius: "0px", clip: "polygon(30% 0, 70% 0, 100% 30%, 100% 70%, 70% 100%, 30% 100%, 0 70%, 0 30%, 30% 0, 30% 0)" },
+    { ratio: "1 / 1", radius: "0px", clip: "polygon(25% 0, 75% 0, 100% 50%, 100% 50%, 75% 100%, 25% 100%, 0 50%, 0 50%, 25% 0, 25% 0)" },
+    { ratio: "1 / 1", radius: "0px", clip: "polygon(50% 0, 50% 0, 100% 100%, 100% 100%, 100% 100%, 0 100%, 0 100%, 0 100%, 50% 0, 50% 0)" },
+    { ratio: "1 / 1", radius: "0px", clip: "polygon(50% 0, 50% 0, 100% 38%, 82% 100%, 82% 100%, 18% 100%, 18% 100%, 0 38%, 50% 0, 50% 0)" },
+    { ratio: "3 / 2", radius: "8px", clip: "polygon(16% 0, 84% 0, 100% 100%, 100% 100%, 100% 100%, 0 100%, 0 100%, 0 100%, 16% 0, 16% 0)" },
+    { ratio: "3 / 2", radius: "0px", clip: "polygon(16% 0, 100% 0, 100% 0, 84% 100%, 84% 100%, 0 100%, 0 100%, 0 100%, 16% 0, 16% 0)" },
+    { ratio: "1 / 1", radius: "0px", clip: "polygon(50% 0, 61% 35%, 98% 35%, 68% 57%, 79% 94%, 50% 72%, 21% 94%, 32% 57%, 2% 35%, 39% 35%)" },
+    { ratio: "2 / 1", radius: "50%", clip: fullPhotoClip },
+    { ratio: "4 / 3", radius: "50% 50% 18px 18px", clip: fullPhotoClip }
+];
 const photoMorphPresets = [
     {
         ratios: ["3 / 2", "8 / 5", "7 / 5"],
-        radii: ["26px", "30px 68px 34px 52px", "58px 28px 72px 36px"]
+        radii: ["26px", "30px 68px 34px 52px", "58px 28px 72px 36px"],
+        geometryPool: [0, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
     },
     {
         ratios: ["3 / 2", "5 / 4", "8 / 5"],
-        radii: ["24px", "48% 52% 44% 56% / 42% 48% 52% 58%", "22px 58px 28px 46px"]
+        radii: ["24px", "48% 52% 44% 56% / 42% 48% 52% 58%", "22px 58px 28px 46px"],
+        geometryPool: [0, 0, 1, 2, 3, 4, 5, 7, 8, 9, 11, 12]
     },
     {
         ratios: ["3 / 2", "4 / 3", "8 / 5"],
-        radii: ["23px", "44% 56% 50% 50% / 56% 42% 58% 44%", "62px 24px 48px 30px"]
+        radii: ["23px", "44% 56% 50% 50% / 56% 42% 58% 44%", "62px 24px 48px 30px"],
+        geometryPool: [0, 1, 2, 3, 4, 5, 6, 7, 10, 12]
     },
     {
         ratios: ["4 / 5", "3 / 4", "5 / 6"],
-        radii: ["25px", "46% 54% 38% 62% / 34% 40% 60% 66%", "78px 30px 64px 36px"]
+        radii: ["25px", "46% 54% 38% 62% / 34% 40% 60% 66%", "78px 30px 64px 36px"],
+        geometryPool: [0, 1, 2, 3, 4, 5, 6, 7, 10, 12]
     },
     {
         ratios: ["4 / 3", "3 / 2", "5 / 4"],
-        radii: ["25px", "30px 74px 28px 62px", "42% 58% 46% 54% / 54% 44% 56% 46%"]
+        radii: ["25px", "30px 74px 28px 62px", "42% 58% 46% 54% / 54% 44% 56% 46%"],
+        geometryPool: [0, 0, 1, 2, 3, 4, 5, 7, 8, 9, 11, 12]
     },
     {
         ratios: ["16 / 9", "2 / 1", "5 / 3"],
-        radii: ["27px", "28px 82px 34px 66px", "64px 30px 76px 36px"]
+        radii: ["27px", "28px 82px 34px 66px", "64px 30px 76px 36px"],
+        geometryPool: [0, 0, 8, 9, 11, 12]
     }
 ];
 
@@ -309,6 +331,8 @@ function schedulePhotoDrift(button, index, delay = randomBetween(300, 2200)) {
         const duration = randomBetween(compactLayout ? 6.5 : 7.5, compactLayout ? 10 : 12.5);
         const isPaused = button.matches(":hover") || document.activeElement === button;
         const morphPreset = photoMorphPresets[index % photoMorphPresets.length];
+        const geometryIndex = morphPreset.geometryPool[Math.floor(Math.random() * morphPreset.geometryPool.length)];
+        const geometryPreset = photoGeometryPresets[geometryIndex];
 
         button.style.setProperty("--drift-duration", `${duration.toFixed(2)}s`);
 
@@ -316,8 +340,9 @@ function schedulePhotoDrift(button, index, delay = randomBetween(300, 2200)) {
             button.style.setProperty("--drift-x", `${randomBetween(-horizontalRange, horizontalRange).toFixed(2)}px`);
             button.style.setProperty("--drift-y", `${randomBetween(-verticalRange, verticalRange).toFixed(2)}px`);
             button.style.setProperty("--size-delta", `${randomBetween(-sizeRange, sizeRange).toFixed(2)}%`);
-            button.style.setProperty("--photo-morph-ratio", morphPreset.ratios[Math.floor(Math.random() * morphPreset.ratios.length)]);
-            button.style.setProperty("--photo-morph-radius", morphPreset.radii[Math.floor(Math.random() * morphPreset.radii.length)]);
+            button.style.setProperty("--photo-morph-ratio", geometryPreset.ratio || morphPreset.ratios[Math.floor(Math.random() * morphPreset.ratios.length)]);
+            button.style.setProperty("--photo-morph-radius", geometryPreset.radius || morphPreset.radii[Math.floor(Math.random() * morphPreset.radii.length)]);
+            button.style.setProperty("--photo-clip", geometryPreset.clip);
         }
 
         schedulePhotoDrift(button, index, duration * 880);
@@ -347,6 +372,7 @@ function stopPhotographyMotion() {
         button.style.removeProperty("--size-delta");
         button.style.removeProperty("--photo-morph-ratio");
         button.style.removeProperty("--photo-morph-radius");
+        button.style.removeProperty("--photo-clip");
     });
 }
 
