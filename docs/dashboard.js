@@ -165,19 +165,19 @@ let photographyMotionActive = false;
 let photoParallaxFrame = null;
 let pendingPhotoPointer = null;
 const photoMotionTimers = new Array(photoButtons.length).fill(null);
-const fullPhotoClip = "polygon(0 0, 50% 0, 100% 0, 100% 50%, 100% 100%, 50% 100%, 0 100%, 0 50%, 0 0, 0 0)";
+const fullPhotoClip = "polygon(round 18px, 0 0, 50% 0, 100% 0, 100% 50%, 100% 100%, 50% 100%, 0 100%, 0 66%, 0 33%, 0 10%)";
 const photoGeometryPresets = [
     { ratio: null, radius: null, clip: fullPhotoClip },
     { ratio: "1 / 1", radius: "0px", clip: fullPhotoClip },
     { ratio: "1 / 1", radius: "50%", clip: fullPhotoClip },
-    { ratio: "1 / 1", radius: "0px", clip: "polygon(50% 0, 50% 0, 100% 50%, 100% 50%, 50% 100%, 50% 100%, 0 50%, 0 50%, 50% 0, 50% 0)" },
-    { ratio: "1 / 1", radius: "0px", clip: "polygon(30% 0, 70% 0, 100% 30%, 100% 70%, 70% 100%, 30% 100%, 0 70%, 0 30%, 30% 0, 30% 0)" },
-    { ratio: "1 / 1", radius: "0px", clip: "polygon(25% 0, 75% 0, 100% 50%, 100% 50%, 75% 100%, 25% 100%, 0 50%, 0 50%, 25% 0, 25% 0)" },
-    { ratio: "1 / 1", radius: "0px", clip: "polygon(50% 0, 50% 0, 100% 100%, 100% 100%, 100% 100%, 0 100%, 0 100%, 0 100%, 50% 0, 50% 0)" },
-    { ratio: "1 / 1", radius: "0px", clip: "polygon(50% 0, 50% 0, 100% 38%, 82% 100%, 82% 100%, 18% 100%, 18% 100%, 0 38%, 50% 0, 50% 0)" },
-    { ratio: "3 / 2", radius: "8px", clip: "polygon(16% 0, 84% 0, 100% 100%, 100% 100%, 100% 100%, 0 100%, 0 100%, 0 100%, 16% 0, 16% 0)" },
-    { ratio: "3 / 2", radius: "0px", clip: "polygon(16% 0, 100% 0, 100% 0, 84% 100%, 84% 100%, 0 100%, 0 100%, 0 100%, 16% 0, 16% 0)" },
-    { ratio: "1 / 1", radius: "0px", clip: "polygon(50% 0, 61% 35%, 98% 35%, 68% 57%, 79% 94%, 50% 72%, 21% 94%, 32% 57%, 2% 35%, 39% 35%)" },
+    { ratio: "1 / 1", radius: "0px", clip: "polygon(round 14px, 50% 0, 75% 25%, 100% 50%, 75% 75%, 50% 100%, 25% 75%, 0 50%, 12.5% 37.5%, 25% 25%, 37.5% 12.5%)" },
+    { ratio: "1 / 1", radius: "0px", clip: "polygon(round 14px, 30% 0, 50% 0, 70% 0, 100% 30%, 100% 70%, 70% 100%, 30% 100%, 0 70%, 0 30%, 15% 15%)" },
+    { ratio: "1 / 1", radius: "0px", clip: "polygon(round 16px, 25% 0, 50% 0, 75% 0, 100% 50%, 75% 100%, 50% 100%, 25% 100%, 0 50%, 12.5% 25%, 18% 12%)" },
+    { ratio: "1 / 1", radius: "0px", clip: "polygon(round 18px, 50% 0, 62.5% 25%, 75% 50%, 87.5% 75%, 100% 100%, 75% 100%, 50% 100%, 25% 100%, 0 100%, 25% 50%)" },
+    { ratio: "1 / 1", radius: "0px", clip: "polygon(round 16px, 50% 0, 75% 19%, 100% 38%, 91% 69%, 82% 100%, 50% 100%, 18% 100%, 9% 69%, 0 38%, 25% 19%)" },
+    { ratio: "3 / 2", radius: "8px", clip: "polygon(round 14px, 16% 0, 50% 0, 84% 0, 92% 50%, 100% 100%, 66% 100%, 33% 100%, 0 100%, 8% 50%, 12% 25%)" },
+    { ratio: "3 / 2", radius: "0px", clip: "polygon(round 14px, 16% 0, 50% 0, 100% 0, 92% 50%, 84% 100%, 42% 100%, 0 100%, 8% 50%, 12% 25%, 14% 12%)" },
+    { ratio: "1 / 1", radius: "0px", clip: "polygon(round 10px, 50% 0, 61% 35%, 98% 35%, 68% 57%, 79% 94%, 50% 72%, 21% 94%, 32% 57%, 2% 35%, 39% 35%)" },
     { ratio: "2 / 1", radius: "50%", clip: fullPhotoClip },
     { ratio: "4 / 3", radius: "50% 50% 18px 18px", clip: fullPhotoClip }
 ];

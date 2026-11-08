@@ -986,7 +986,7 @@ a:focus-visible {
     --photo-scale: 1;
     --size-delta: 0%;
     --photo-standard-radius: clamp(18px, 1.8vw, 27px);
-    --photo-standard-clip: polygon(0 0, 50% 0, 100% 0, 100% 50%, 100% 100%, 50% 100%, 0 100%, 0 50%, 0 0, 0 0);
+    --photo-standard-clip: polygon(round 18px, 0 0, 50% 0, 100% 0, 100% 50%, 100% 100%, 50% 100%, 0 100%, 0 66%, 0 33%, 0 10%);
     position: absolute;
     z-index: var(--photo-z, 2);
     top: var(--photo-top);
