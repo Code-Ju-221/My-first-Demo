@@ -42,6 +42,10 @@
                     <span class="nav-icon"><i class="fa-solid fa-layer-group"></i></span>
                     <span class="nav-label">代表项目</span>
                 </button>
+                <button class="nav-item" type="button" data-target="photography" title="摄影专栏">
+                    <span class="nav-icon"><i class="fa-solid fa-camera-retro"></i></span>
+                    <span class="nav-label">摄影专栏</span>
+                </button>
                 <button class="nav-item" type="button" data-target="timeline" title="经历时间线">
                     <span class="nav-icon"><i class="fa-solid fa-timeline"></i></span>
                     <span class="nav-label">经历时间线</span>
@@ -257,16 +261,64 @@
                     </div>
                 </section>
 
+                <section class="portfolio-section photography-section" id="photography" data-section-label="摄影专栏" tabindex="-1" aria-hidden="true">
+                    <header class="section-heading photography-heading">
+                        <div>
+                            <p class="section-index">04 / PHOTOGRAPHY</p>
+                            <h2>摄影专栏</h2>
+                        </div>
+                        <p>把日常里稍纵即逝的光影，留成可以反复观看的片段。</p>
+                    </header>
+
+                    <div class="photo-gallery" aria-label="鞠泽轩的摄影作品">
+                        <button class="photo-card photo-seven" type="button" data-photo-index="0" aria-label="放大查看：微光中的小宇宙">
+                            <img src="assets/photography/little-figure.png" alt="车窗边拿着向日葵的白色小摆件" loading="lazy">
+                            <span class="photo-number">01</span>
+                            <span class="photo-caption"><strong>微光中的小宇宙</strong><small>静物 · 光影</small></span>
+                        </button>
+                        <button class="photo-card photo-five" type="button" data-photo-index="1" aria-label="放大查看：一枝荷">
+                            <img src="assets/photography/lotus-distance.png" alt="荷叶之间的一枝粉色荷花" loading="lazy">
+                            <span class="photo-number">02</span>
+                            <span class="photo-caption"><strong>一枝荷</strong><small>自然 · 荷塘</small></span>
+                        </button>
+                        <button class="photo-card photo-four photo-tall" type="button" data-photo-index="2" aria-label="放大查看：盛放">
+                            <img src="assets/photography/orange-flower.jpg" alt="阳光下盛开的橙色花朵" loading="lazy">
+                            <span class="photo-number">03</span>
+                            <span class="photo-caption"><strong>盛放</strong><small>花卉 · 色彩</small></span>
+                        </button>
+                        <button class="photo-card photo-four" type="button" data-photo-index="3" aria-label="放大查看：窗边的幸运">
+                            <img src="assets/photography/window-token.png" alt="阳光下靠在窗边的四叶草徽章" loading="lazy">
+                            <span class="photo-number">04</span>
+                            <span class="photo-caption"><strong>窗边的幸运</strong><small>静物 · 日常</small></span>
+                        </button>
+                        <button class="photo-card photo-four" type="button" data-photo-index="4" aria-label="放大查看：荷心">
+                            <img src="assets/photography/lotus-close.jpg" alt="粉色荷花的近距离特写" loading="lazy">
+                            <span class="photo-number">05</span>
+                            <span class="photo-caption"><strong>荷心</strong><small>自然 · 特写</small></span>
+                        </button>
+                        <button class="photo-card photo-eight" type="button" data-photo-index="5" aria-label="放大查看：同行者">
+                            <img src="assets/photography/companions.jpg" alt="五位身穿紫色上衣的同伴合影" loading="lazy">
+                            <span class="photo-number">06</span>
+                            <span class="photo-caption"><strong>同行者</strong><small>人像 · 纪实</small></span>
+                        </button>
+                    </div>
+                </section>
+
                 <section class="portfolio-section" id="timeline" data-section-label="经历时间线" tabindex="-1" aria-hidden="true">
                     <header class="section-heading">
                         <div>
-                            <p class="section-index">04 / JOURNEY</p>
+                            <p class="section-index">05 / JOURNEY</p>
                             <h2>经历时间线</h2>
                         </div>
                         <p>把学习过程和阶段性成果连接起来。</p>
                     </header>
 
                     <div class="panel timeline-panel">
+                        <article class="timeline-item">
+                            <div class="timeline-marker"></div>
+                            <time>2026.11</time>
+                            <div><h3>完成多个独立网页作品</h3><p>制作生日动画、互动网页和带有 Supabase 认证流程的个人网站。</p></div>
+                        </article>
                         <article class="timeline-item current">
                             <div class="timeline-marker"></div>
                             <time>2026.09</time>
@@ -274,11 +326,6 @@
                                 <h3>加入软件信息化项目组</h3>
                                 <p>加入宣传页面网站与实验室管理系统两个项目小组，开始熟悉团队协作和项目开发流程，并加入 <a href="https://github.com/XAUT-WisdomLab" target="_blank" rel="noreferrer">XAUT-WisdomLab</a> GitHub组织。</p>
                             </div>
-                        </article>
-                        <article class="timeline-item">
-                            <div class="timeline-marker"></div>
-                            <time>2026.11</time>
-                            <div><h3>完成多个独立网页作品</h3><p>制作生日动画、互动网页和带有 Supabase 认证流程的个人网站。</p></div>
                         </article>
                         <article class="timeline-item">
                             <div class="timeline-marker"></div>
@@ -311,7 +358,7 @@
                 <section class="portfolio-section" id="achievements" data-section-label="成果记录" tabindex="-1" aria-hidden="true">
                     <header class="section-heading">
                         <div>
-                            <p class="section-index">05 / ACHIEVEMENTS</p>
+                            <p class="section-index">06 / ACHIEVEMENTS</p>
                             <h2>成果记录</h2>
                         </div>
                         <p>只展示真实、值得记录的阶段成果。</p>
@@ -339,7 +386,7 @@
                 <section class="portfolio-section contact-section" id="contact" data-section-label="联系方式" tabindex="-1" aria-hidden="true">
                     <div class="panel contact-panel">
                         <div>
-                            <p class="section-index">06 / CONTACT</p>
+                            <p class="section-index">07 / CONTACT</p>
                             <h2>保持联系</h2>
                             <p>如果你对我的项目、学习方向或合作想法感兴趣，可以通过以下方式联系我。</p>
                         </div>
@@ -379,6 +426,31 @@
                     <div class="project-links" id="projectDialogLinks"></div>
                 </div>
             </div>
+        </section>
+    </div>
+
+    <div class="photo-lightbox" id="photoLightbox" hidden>
+        <button class="photo-lightbox-backdrop" type="button" data-close-photo aria-label="关闭照片"></button>
+        <section class="photo-lightbox-dialog" role="dialog" aria-modal="true" aria-labelledby="photoLightboxTitle">
+            <header class="photo-lightbox-header">
+                <span id="photoLightboxCount">01 / 06</span>
+                <button class="photo-lightbox-close" type="button" data-close-photo aria-label="关闭照片">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </header>
+            <button class="photo-lightbox-nav photo-lightbox-prev" id="photoPrev" type="button" aria-label="上一张照片">
+                <i class="fa-solid fa-arrow-left"></i>
+            </button>
+            <figure class="photo-lightbox-figure">
+                <img id="photoLightboxImage" src="" alt="">
+                <figcaption>
+                    <strong id="photoLightboxTitle"></strong>
+                    <span id="photoLightboxMeta"></span>
+                </figcaption>
+            </figure>
+            <button class="photo-lightbox-nav photo-lightbox-next" id="photoNext" type="button" aria-label="下一张照片">
+                <i class="fa-solid fa-arrow-right"></i>
+            </button>
         </section>
     </div>
 

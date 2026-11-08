@@ -23,6 +23,15 @@ const projectDialogFacts = document.getElementById("projectDialogFacts");
 const projectDialogLinks = document.getElementById("projectDialogLinks");
 const projectDemo = document.getElementById("projectDemo");
 const projectCloseButton = projectModal.querySelector(".project-close");
+const photoButtons = Array.from(document.querySelectorAll("[data-photo-index]"));
+const photoLightbox = document.getElementById("photoLightbox");
+const photoLightboxImage = document.getElementById("photoLightboxImage");
+const photoLightboxTitle = document.getElementById("photoLightboxTitle");
+const photoLightboxMeta = document.getElementById("photoLightboxMeta");
+const photoLightboxCount = document.getElementById("photoLightboxCount");
+const photoLightboxClose = photoLightbox.querySelector(".photo-lightbox-close");
+const photoPrev = document.getElementById("photoPrev");
+const photoNext = document.getElementById("photoNext");
 
 const projectData = {
     portfolio: {
@@ -143,6 +152,9 @@ const projectData = {
 
 let projectOpener = null;
 let projectCloseTimer = null;
+let photoOpener = null;
+let photoCloseTimer = null;
+let activePhotoIndex = 0;
 
 function goToLogin() {
     window.location.replace("index.html");
@@ -337,7 +349,77 @@ document.querySelectorAll("[data-close-project]").forEach((button) => {
     button.addEventListener("click", closeProject);
 });
 
+function renderPhoto(index) {
+    activePhotoIndex = (index + photoButtons.length) % photoButtons.length;
+    const photoButton = photoButtons[activePhotoIndex];
+    const sourceImage = photoButton.querySelector("img");
+
+    photoLightboxImage.src = sourceImage.src;
+    photoLightboxImage.alt = sourceImage.alt;
+    photoLightboxTitle.textContent = photoButton.querySelector("strong").textContent;
+    photoLightboxMeta.textContent = photoButton.querySelector("small").textContent;
+    photoLightboxCount.textContent = `${String(activePhotoIndex + 1).padStart(2, "0")} / ${String(photoButtons.length).padStart(2, "0")}`;
+}
+
+function openPhoto(index, opener) {
+    window.clearTimeout(photoCloseTimer);
+    photoOpener = opener;
+    renderPhoto(index);
+    photoLightbox.hidden = false;
+    document.body.classList.add("modal-open");
+
+    window.requestAnimationFrame(() => {
+        photoLightbox.classList.add("is-open");
+        photoLightboxClose.focus();
+    });
+}
+
+function closePhoto() {
+    if (photoLightbox.hidden) {
+        return;
+    }
+
+    photoLightbox.classList.remove("is-open");
+    document.body.classList.remove("modal-open");
+
+    photoCloseTimer = window.setTimeout(() => {
+        photoLightbox.hidden = true;
+        photoLightboxImage.removeAttribute("src");
+        photoOpener?.focus();
+    }, 360);
+}
+
+photoButtons.forEach((button, index) => {
+    button.addEventListener("click", () => {
+        openPhoto(index, button);
+    });
+});
+
+document.querySelectorAll("[data-close-photo]").forEach((button) => {
+    button.addEventListener("click", closePhoto);
+});
+
+photoPrev.addEventListener("click", () => {
+    renderPhoto(activePhotoIndex - 1);
+});
+
+photoNext.addEventListener("click", () => {
+    renderPhoto(activePhotoIndex + 1);
+});
+
 document.addEventListener("keydown", (event) => {
+    if (!photoLightbox.hidden) {
+        if (event.key === "Escape") {
+            closePhoto();
+        } else if (event.key === "ArrowLeft") {
+            renderPhoto(activePhotoIndex - 1);
+        } else if (event.key === "ArrowRight") {
+            renderPhoto(activePhotoIndex + 1);
+        }
+
+        return;
+    }
+
     if (event.key === "Escape" && !projectModal.hidden) {
         closeProject();
     }
