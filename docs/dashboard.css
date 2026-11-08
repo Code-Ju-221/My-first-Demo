@@ -946,6 +946,14 @@ a:focus-visible {
     font-size: 13px;
 }
 
+.timeline-item a {
+    color: var(--accent);
+    font-weight: 600;
+    text-decoration: underline;
+    text-decoration-color: rgba(161, 15, 15, .25);
+    text-underline-offset: 3px;
+}
+
 .muted-item {
     opacity: .62;
 }
