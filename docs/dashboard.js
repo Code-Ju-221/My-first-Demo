@@ -35,6 +35,9 @@ const photoNext = document.getElementById("photoNext");
 const photoGallery = document.querySelector(".photo-gallery");
 const photographySection = document.getElementById("photography");
 const reducedMotionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
+const photoFocusCount = document.getElementById("photoFocusCount");
+const photoFocusTitle = document.getElementById("photoFocusTitle");
+const photoFocusMeta = document.getElementById("photoFocusMeta");
 
 const projectData = {
     portfolio: {
@@ -239,6 +242,30 @@ function resetPhotoParallax() {
         button.style.setProperty("--parallax-x", "0px");
         button.style.setProperty("--parallax-y", "0px");
     });
+
+    photoGallery.style.setProperty("--spotlight-x", "50%");
+    photoGallery.style.setProperty("--spotlight-y", "46%");
+}
+
+function setPhotoFocus(index) {
+    const normalizedIndex = (index + photoButtons.length) % photoButtons.length;
+    const focusedButton = photoButtons[normalizedIndex];
+    const title = focusedButton.querySelector("strong").textContent;
+    const meta = focusedButton.querySelector("small").textContent;
+
+    photoButtons.forEach((button, buttonIndex) => {
+        button.classList.toggle("is-photo-focus", buttonIndex === normalizedIndex);
+    });
+
+    photoGallery.classList.add("has-photo-focus");
+    photoFocusCount.textContent = `${String(normalizedIndex + 1).padStart(2, "0")} / ${String(photoButtons.length).padStart(2, "0")}`;
+    photoFocusTitle.textContent = title;
+    photoFocusMeta.textContent = meta;
+}
+
+function clearPhotoFocus() {
+    photoGallery.classList.remove("has-photo-focus");
+    photoButtons.forEach((button) => button.classList.remove("is-photo-focus"));
 }
 
 function schedulePhotoDrift(button, index, delay = randomBetween(180, 950)) {
@@ -303,9 +330,13 @@ photoGallery.addEventListener("pointermove", (event) => {
     }
 
     const bounds = photoGallery.getBoundingClientRect();
+    const pointerX = (event.clientX - bounds.left) / bounds.width;
+    const pointerY = (event.clientY - bounds.top) / bounds.height;
+    photoGallery.style.setProperty("--spotlight-x", `${(pointerX * 100).toFixed(2)}%`);
+    photoGallery.style.setProperty("--spotlight-y", `${(pointerY * 100).toFixed(2)}%`);
     pendingPhotoPointer = {
-        x: (event.clientX - bounds.left) / bounds.width - .5,
-        y: (event.clientY - bounds.top) / bounds.height - .5
+        x: pointerX - .5,
+        y: pointerY - .5
     };
 
     if (photoParallaxFrame) {
@@ -328,7 +359,10 @@ photoGallery.addEventListener("pointermove", (event) => {
     });
 });
 
-photoGallery.addEventListener("pointerleave", resetPhotoParallax);
+photoGallery.addEventListener("pointerleave", () => {
+    resetPhotoParallax();
+    clearPhotoFocus();
+});
 window.addEventListener("resize", resetPhotoParallax);
 reducedMotionQuery.addEventListener("change", () => updatePhotographyMotion());
 
@@ -516,6 +550,18 @@ function closePhoto() {
 photoButtons.forEach((button, index) => {
     button.addEventListener("click", () => {
         openPhoto(index, button);
+    });
+
+    button.addEventListener("pointerenter", () => {
+        setPhotoFocus(index);
+    });
+
+    button.addEventListener("focus", () => {
+        setPhotoFocus(index);
+    });
+
+    button.addEventListener("blur", () => {
+        clearPhotoFocus();
     });
 });
 

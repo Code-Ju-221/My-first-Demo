@@ -897,13 +897,28 @@ a:focus-visible {
     align-items: center;
 }
 
+@property --spotlight-x {
+    syntax: "<percentage>";
+    inherits: false;
+    initial-value: 50%;
+}
+
+@property --spotlight-y {
+    syntax: "<percentage>";
+    inherits: false;
+    initial-value: 46%;
+}
+
 .photo-gallery {
+    --spotlight-x: 50%;
+    --spotlight-y: 46%;
     position: relative;
     min-height: clamp(780px, 70vw, 980px);
     overflow: hidden;
     border: 1px solid rgba(255, 255, 255, .62);
     border-radius: 34px;
     background:
+        radial-gradient(circle 340px at var(--spotlight-x) var(--spotlight-y), rgba(255, 255, 255, .64), transparent 72%),
         radial-gradient(circle at 51% 46%, rgba(166, 12, 17, .07), transparent 31%),
         linear-gradient(145deg, rgba(240, 240, 240, .82), rgba(218, 218, 218, .48));
     box-shadow:
@@ -912,6 +927,7 @@ a:focus-visible {
         18px 18px 38px rgba(184, 184, 184, .38),
         -14px -14px 30px rgba(255, 255, 255, .64);
     isolation: isolate;
+    transition: --spotlight-x .42s ease-out, --spotlight-y .42s ease-out;
 }
 
 .photo-gallery::before,
@@ -992,12 +1008,13 @@ a:focus-visible {
         translate var(--drift-duration, 7s) cubic-bezier(.36, 0, .18, 1),
         transform .62s cubic-bezier(.2, .78, .24, 1),
         box-shadow .62s ease,
-        filter .48s ease;
+        filter .58s ease,
+        opacity .58s ease;
     will-change: translate, transform;
 }
 
 .photography-section.is-active .photo-card {
-    animation: photo-develop .9s both;
+    animation: photo-develop .9s backwards;
 }
 
 .photography-section.is-active .photo-card:nth-child(2) { animation-delay: .08s; }
@@ -1034,7 +1051,8 @@ a:focus-visible {
 }
 
 .photo-card:hover,
-.photo-card:focus-visible {
+.photo-card:focus-visible,
+.photo-card.is-photo-focus {
     z-index: 30;
     --photo-scale: 1.045;
     --photo-rotate: 0deg;
@@ -1044,9 +1062,16 @@ a:focus-visible {
 }
 
 .photo-card:hover img,
-.photo-card:focus-visible img {
+.photo-card:focus-visible img,
+.photo-card.is-photo-focus img {
     transform: scale(1.065);
     filter: saturate(1.06) contrast(1.02);
+}
+
+.photo-gallery.has-photo-focus .photo-card:not(.is-photo-focus) {
+    opacity: .62;
+    filter: grayscale(.54) brightness(.84) blur(.45px);
+    --photo-scale: .985;
 }
 
 .photo-lead {
@@ -1131,11 +1156,70 @@ a:focus-visible {
     transition: opacity .42s ease, transform .5s var(--ease-out);
 }
 
-.photo-lead .photo-caption,
+.photo-gallery:not(.has-photo-focus) .photo-lead .photo-caption,
 .photo-card:hover .photo-caption,
-.photo-card:focus-visible .photo-caption {
+.photo-card:focus-visible .photo-caption,
+.photo-card.is-photo-focus .photo-caption {
     opacity: 1;
     transform: translateY(0);
+}
+
+.photo-focus-label {
+    position: absolute;
+    z-index: 18;
+    bottom: 3.2%;
+    left: 4%;
+    min-width: 270px;
+    display: grid;
+    grid-template-columns: auto 46px minmax(0, 1fr);
+    align-items: center;
+    gap: 13px;
+    padding: 12px 15px;
+    border: 1px solid rgba(255, 255, 255, .58);
+    border-radius: 17px;
+    color: #4e4e4e;
+    background: rgba(232, 232, 232, .66);
+    box-shadow:
+        inset 1px 1px 0 rgba(255, 255, 255, .7),
+        8px 10px 24px rgba(123, 123, 123, .18);
+    backdrop-filter: blur(16px) saturate(.75);
+    pointer-events: none;
+}
+
+.photo-focus-count {
+    color: var(--accent);
+    font-size: 10px;
+    font-variant-numeric: tabular-nums;
+    letter-spacing: 1.2px;
+}
+
+.photo-focus-line {
+    height: 1px;
+    background: linear-gradient(90deg, rgba(155, 17, 20, .68), rgba(155, 17, 20, .08));
+    transform-origin: left center;
+    animation: photo-label-line 7s ease-in-out infinite alternate;
+}
+
+.photo-focus-copy {
+    display: grid;
+    gap: 2px;
+}
+
+.photo-focus-copy strong {
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: .3px;
+}
+
+.photo-focus-copy small {
+    color: rgba(78, 78, 78, .62);
+    font-size: 9px;
+    letter-spacing: .5px;
+}
+
+@keyframes photo-label-line {
+    from { transform: scaleX(.45); }
+    to { transform: scaleX(1); }
 }
 
 .photo-caption strong {
@@ -1776,6 +1860,12 @@ body.modal-open {
         border-radius: 28px;
     }
 
+    .photo-focus-label {
+        bottom: 2.2%;
+        min-width: 236px;
+        grid-template-columns: auto 28px minmax(0, 1fr);
+    }
+
     .photo-lead {
         --photo-left: 3%;
         --photo-top: 4%;
@@ -2004,6 +2094,10 @@ body.modal-open {
     .photo-gallery {
         min-height: 780px;
         border-radius: 24px;
+    }
+
+    .photo-focus-label {
+        display: none;
     }
 
     .photo-card {
