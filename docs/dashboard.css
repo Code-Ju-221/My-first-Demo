@@ -984,17 +984,19 @@ a:focus-visible {
     --parallax-x: 0px;
     --parallax-y: 0px;
     --photo-scale: 1;
+    --size-delta: 0%;
+    --photo-standard-radius: clamp(18px, 1.8vw, 27px);
     position: absolute;
     z-index: var(--photo-z, 2);
     top: var(--photo-top);
     left: var(--photo-left);
-    width: var(--photo-width);
-    aspect-ratio: var(--photo-ratio, 3 / 2);
+    width: calc(var(--photo-width) + var(--size-delta));
+    aspect-ratio: var(--photo-morph-ratio, var(--photo-ratio, 3 / 2));
     min-width: 0;
     overflow: hidden;
     padding: 0;
     border: 1px solid rgba(255, 255, 255, .64);
-    border-radius: clamp(18px, 1.8vw, 27px);
+    border-radius: var(--photo-morph-radius, var(--photo-standard-radius));
     cursor: zoom-in;
     background: #d6d6d6;
     box-shadow:
@@ -1006,6 +1008,9 @@ a:focus-visible {
     transform: translate3d(var(--parallax-x), var(--parallax-y), 0) rotate(var(--photo-rotate, 0deg)) scale(var(--photo-scale));
     transition:
         translate var(--drift-duration, 7s) cubic-bezier(.36, 0, .18, 1),
+        width var(--morph-duration, var(--drift-duration, 7s)) cubic-bezier(.36, 0, .18, 1),
+        aspect-ratio var(--morph-duration, var(--drift-duration, 7s)) cubic-bezier(.36, 0, .18, 1),
+        border-radius var(--morph-duration, var(--drift-duration, 7s)) cubic-bezier(.36, 0, .18, 1),
         transform .62s cubic-bezier(.2, .78, .24, 1),
         box-shadow .62s ease,
         filter .58s ease,
@@ -1056,6 +1061,10 @@ a:focus-visible {
     z-index: 30;
     --photo-scale: 1.045;
     --photo-rotate: 0deg;
+    --morph-duration: .72s;
+    width: var(--photo-width);
+    aspect-ratio: var(--photo-ratio, 3 / 2);
+    border-radius: var(--photo-standard-radius);
     box-shadow:
         -12px -12px 28px rgba(255, 255, 255, .78),
         20px 26px 46px rgba(107, 107, 107, .42);
@@ -2101,7 +2110,7 @@ body.modal-open {
     }
 
     .photo-card {
-        border-radius: 17px;
+        --photo-standard-radius: 17px;
     }
 
     .photo-lead {

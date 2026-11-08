@@ -165,6 +165,32 @@ let photographyMotionActive = false;
 let photoParallaxFrame = null;
 let pendingPhotoPointer = null;
 const photoMotionTimers = new Array(photoButtons.length).fill(null);
+const photoMorphPresets = [
+    {
+        ratios: ["3 / 2", "8 / 5", "7 / 5"],
+        radii: ["26px", "30px 68px 34px 52px", "58px 28px 72px 36px"]
+    },
+    {
+        ratios: ["3 / 2", "5 / 4", "8 / 5"],
+        radii: ["24px", "48% 52% 44% 56% / 42% 48% 52% 58%", "22px 58px 28px 46px"]
+    },
+    {
+        ratios: ["3 / 2", "4 / 3", "8 / 5"],
+        radii: ["23px", "44% 56% 50% 50% / 56% 42% 58% 44%", "62px 24px 48px 30px"]
+    },
+    {
+        ratios: ["4 / 5", "3 / 4", "5 / 6"],
+        radii: ["25px", "46% 54% 38% 62% / 34% 40% 60% 66%", "78px 30px 64px 36px"]
+    },
+    {
+        ratios: ["4 / 3", "3 / 2", "5 / 4"],
+        radii: ["25px", "30px 74px 28px 62px", "42% 58% 46% 54% / 54% 44% 56% 46%"]
+    },
+    {
+        ratios: ["16 / 9", "2 / 1", "5 / 3"],
+        radii: ["27px", "28px 82px 34px 66px", "64px 30px 76px 36px"]
+    }
+];
 
 function goToLogin() {
     window.location.replace("index.html");
@@ -268,7 +294,7 @@ function clearPhotoFocus() {
     photoButtons.forEach((button) => button.classList.remove("is-photo-focus"));
 }
 
-function schedulePhotoDrift(button, index, delay = randomBetween(180, 950)) {
+function schedulePhotoDrift(button, index, delay = randomBetween(300, 2200)) {
     window.clearTimeout(photoMotionTimers[index]);
 
     photoMotionTimers[index] = window.setTimeout(() => {
@@ -279,14 +305,19 @@ function schedulePhotoDrift(button, index, delay = randomBetween(180, 950)) {
         const compactLayout = window.matchMedia("(max-width: 720px)").matches;
         const horizontalRange = compactLayout ? 7 : 13 + (index % 3) * 3;
         const verticalRange = compactLayout ? 6 : 10 + (index % 2) * 4;
+        const sizeRange = compactLayout ? 1.2 : 2.7;
         const duration = randomBetween(compactLayout ? 6.5 : 7.5, compactLayout ? 10 : 12.5);
         const isPaused = button.matches(":hover") || document.activeElement === button;
+        const morphPreset = photoMorphPresets[index % photoMorphPresets.length];
 
         button.style.setProperty("--drift-duration", `${duration.toFixed(2)}s`);
 
         if (!isPaused) {
             button.style.setProperty("--drift-x", `${randomBetween(-horizontalRange, horizontalRange).toFixed(2)}px`);
             button.style.setProperty("--drift-y", `${randomBetween(-verticalRange, verticalRange).toFixed(2)}px`);
+            button.style.setProperty("--size-delta", `${randomBetween(-sizeRange, sizeRange).toFixed(2)}%`);
+            button.style.setProperty("--photo-morph-ratio", morphPreset.ratios[Math.floor(Math.random() * morphPreset.ratios.length)]);
+            button.style.setProperty("--photo-morph-radius", morphPreset.radii[Math.floor(Math.random() * morphPreset.radii.length)]);
         }
 
         schedulePhotoDrift(button, index, duration * 880);
@@ -313,6 +344,9 @@ function stopPhotographyMotion() {
         button.style.setProperty("--drift-duration", "1.1s");
         button.style.setProperty("--drift-x", "0px");
         button.style.setProperty("--drift-y", "0px");
+        button.style.removeProperty("--size-delta");
+        button.style.removeProperty("--photo-morph-ratio");
+        button.style.removeProperty("--photo-morph-radius");
     });
 }
 
