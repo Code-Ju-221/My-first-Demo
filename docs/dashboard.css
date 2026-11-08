@@ -899,7 +899,7 @@ a:focus-visible {
     position: absolute;
     top: 54px;
     bottom: 54px;
-    left: 138px;
+    left: 150px;
     width: 2px;
     background: linear-gradient(var(--accent), rgba(155, 118, 38, .28), rgba(150, 150, 150, .12));
 }
@@ -907,7 +907,7 @@ a:focus-visible {
 .timeline-item {
     position: relative;
     display: grid;
-    grid-template-columns: 80px 20px 1fr;
+    grid-template-columns: 92px 20px 1fr;
     gap: 20px;
     align-items: start;
     padding: 20px 0;
@@ -916,6 +916,8 @@ a:focus-visible {
 .timeline-item time {
     color: var(--muted);
     font-size: 12px;
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
     text-align: right;
 }
 
