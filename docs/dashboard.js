@@ -32,6 +32,9 @@ const photoLightboxCount = document.getElementById("photoLightboxCount");
 const photoLightboxClose = photoLightbox.querySelector(".photo-lightbox-close");
 const photoPrev = document.getElementById("photoPrev");
 const photoNext = document.getElementById("photoNext");
+const photoGallery = document.querySelector(".photo-gallery");
+const photographySection = document.getElementById("photography");
+const reducedMotionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
 
 const projectData = {
     portfolio: {
@@ -155,6 +158,10 @@ let projectCloseTimer = null;
 let photoOpener = null;
 let photoCloseTimer = null;
 let activePhotoIndex = 0;
+let photographyMotionActive = false;
+let photoParallaxFrame = null;
+let pendingPhotoPointer = null;
+const photoMotionTimers = new Array(photoButtons.length).fill(null);
 
 function goToLogin() {
     window.location.replace("index.html");
@@ -202,11 +209,128 @@ function showSection(sectionId, updateHistory = true) {
     }
 
     window.scrollTo({ top: 0, behavior: "auto" });
+    updatePhotographyMotion(sectionId === "photography");
 
     window.requestAnimationFrame(() => {
         section.focus({ preventScroll: true });
     });
 }
+
+function randomBetween(minimum, maximum) {
+    return minimum + Math.random() * (maximum - minimum);
+}
+
+function clearPhotoMotionTimers() {
+    photoMotionTimers.forEach((timer, index) => {
+        window.clearTimeout(timer);
+        photoMotionTimers[index] = null;
+    });
+}
+
+function resetPhotoParallax() {
+    pendingPhotoPointer = null;
+
+    if (photoParallaxFrame) {
+        window.cancelAnimationFrame(photoParallaxFrame);
+        photoParallaxFrame = null;
+    }
+
+    photoButtons.forEach((button) => {
+        button.style.setProperty("--parallax-x", "0px");
+        button.style.setProperty("--parallax-y", "0px");
+    });
+}
+
+function schedulePhotoDrift(button, index, delay = randomBetween(180, 950)) {
+    window.clearTimeout(photoMotionTimers[index]);
+
+    photoMotionTimers[index] = window.setTimeout(() => {
+        if (!photographyMotionActive) {
+            return;
+        }
+
+        const compactLayout = window.matchMedia("(max-width: 720px)").matches;
+        const horizontalRange = compactLayout ? 7 : 13 + (index % 3) * 3;
+        const verticalRange = compactLayout ? 6 : 10 + (index % 2) * 4;
+        const duration = randomBetween(compactLayout ? 6.5 : 7.5, compactLayout ? 10 : 12.5);
+        const isPaused = button.matches(":hover") || document.activeElement === button;
+
+        button.style.setProperty("--drift-duration", `${duration.toFixed(2)}s`);
+
+        if (!isPaused) {
+            button.style.setProperty("--drift-x", `${randomBetween(-horizontalRange, horizontalRange).toFixed(2)}px`);
+            button.style.setProperty("--drift-y", `${randomBetween(-verticalRange, verticalRange).toFixed(2)}px`);
+        }
+
+        schedulePhotoDrift(button, index, duration * 880);
+    }, delay);
+}
+
+function startPhotographyMotion() {
+    if (photographyMotionActive || reducedMotionQuery.matches) {
+        return;
+    }
+
+    photographyMotionActive = true;
+    photoButtons.forEach((button, index) => {
+        schedulePhotoDrift(button, index);
+    });
+}
+
+function stopPhotographyMotion() {
+    photographyMotionActive = false;
+    clearPhotoMotionTimers();
+    resetPhotoParallax();
+
+    photoButtons.forEach((button) => {
+        button.style.setProperty("--drift-duration", "1.1s");
+        button.style.setProperty("--drift-x", "0px");
+        button.style.setProperty("--drift-y", "0px");
+    });
+}
+
+function updatePhotographyMotion(isPhotographyActive = photographySection.classList.contains("is-active")) {
+    if (isPhotographyActive && !reducedMotionQuery.matches) {
+        startPhotographyMotion();
+    } else {
+        stopPhotographyMotion();
+    }
+}
+
+photoGallery.addEventListener("pointermove", (event) => {
+    if (!photographyMotionActive || reducedMotionQuery.matches || event.pointerType === "touch") {
+        return;
+    }
+
+    const bounds = photoGallery.getBoundingClientRect();
+    pendingPhotoPointer = {
+        x: (event.clientX - bounds.left) / bounds.width - .5,
+        y: (event.clientY - bounds.top) / bounds.height - .5
+    };
+
+    if (photoParallaxFrame) {
+        return;
+    }
+
+    photoParallaxFrame = window.requestAnimationFrame(() => {
+        const pointer = pendingPhotoPointer;
+        photoParallaxFrame = null;
+
+        if (!pointer) {
+            return;
+        }
+
+        photoButtons.forEach((button, index) => {
+            const depth = 4 + (index % 3) * 2.4;
+            button.style.setProperty("--parallax-x", `${(pointer.x * depth).toFixed(2)}px`);
+            button.style.setProperty("--parallax-y", `${(pointer.y * depth).toFixed(2)}px`);
+        });
+    });
+});
+
+photoGallery.addEventListener("pointerleave", resetPhotoParallax);
+window.addEventListener("resize", resetPhotoParallax);
+reducedMotionQuery.addEventListener("change", () => updatePhotographyMotion());
 
 navigationItems.forEach((item) => {
     item.addEventListener("click", () => {
